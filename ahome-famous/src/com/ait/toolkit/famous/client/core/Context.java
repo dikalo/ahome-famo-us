@@ -8,4 +8,9 @@ public class Context extends FamoUsNode {
 		jsObj = peer;
 	}
 
+	@Override
+	public JavaScriptObject createPeer() {
+		return null;
+	}
+
 }

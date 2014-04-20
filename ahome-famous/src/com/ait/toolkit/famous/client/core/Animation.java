@@ -3,9 +3,9 @@ package com.ait.toolkit.famous.client.core;
 import com.ait.toolkit.core.client.JsObject;
 import com.ait.toolkit.core.client.JsoHelper;
 
-public class AnimationConfig extends JsObject {
+public class Animation extends JsObject {
 
-	public AnimationConfig() {
+	public Animation() {
 		jsObj = JsoHelper.createObject();
 	}
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
-    <stylesheet src="famous/core/famou.css" />
+    <stylesheet src="famous/core/famous.css" />
      <define-linker name="famoUsLinker" class="com.ait.toolkit.famous.linker.FamoUsLinker"/>
     <add-linker name="famoUsLinker"/>
+    
+    <inherits name='com.ait.toolkit.core.Core'/>
 </module>

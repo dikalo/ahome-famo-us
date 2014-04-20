@@ -8,23 +8,26 @@ import com.google.gwt.core.client.JsArrayNumber;
 public class ImageSurface extends RenderNode {
 
 	public ImageSurface() {
-		jsObj = JsoHelper.createObject();
+		config = JsoHelper.createObject();
 	}
 
-	private native JavaScriptObject createPeer()/*-{
-		var config = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		return new $wnd.aitFomImageSurface(config);
+	@Override
+	public native JavaScriptObject createPeer()/*-{
+		var config = this.@com.ait.toolkit.famous.client.core.FamoUsNode::getConfig()();
+		var toReturn = new $wnd.aitFamoImageSurface(config);
+		this.@com.ait.toolkit.core.client.JsObject::jsObj = toReturn;
+		return toReturn;
 	}-*/;
 
 	public void setSize(int width, int height) {
 		JsArrayNumber values = JsArrayNumber.createArray().cast();
 		values.push(width);
 		values.push(height);
-		JsoHelper.setAttribute(jsObj, "size", values);
+		JsoHelper.setAttribute(config, "size", values);
 	}
 
 	public void setContent(String content) {
-		JsoHelper.setAttribute(jsObj, "content", content);
+		JsoHelper.setAttribute(config, "content", content);
 	}
 
 }
