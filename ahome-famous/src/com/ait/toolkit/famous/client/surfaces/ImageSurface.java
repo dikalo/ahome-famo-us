@@ -1,12 +1,11 @@
 package com.ait.toolkit.famous.client.surfaces;
 
-import com.ait.toolkit.famous.client.core.Displayable;
-import com.ait.toolkit.core.client.JsObject;
 import com.ait.toolkit.core.client.JsoHelper;
+import com.ait.toolkit.famous.client.core.RenderNode;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 
-public class ImageSurface extends JsObject implements Displayable {
+public class ImageSurface extends RenderNode {
 
 	public ImageSurface() {
 		jsObj = JsoHelper.createObject();
@@ -26,11 +25,6 @@ public class ImageSurface extends JsObject implements Displayable {
 
 	public void setContent(String content) {
 		JsoHelper.setAttribute(jsObj, "content", content);
-	}
-
-	@Override
-	public JavaScriptObject getDisplayObject() {
-		return createPeer();
 	}
 
 }

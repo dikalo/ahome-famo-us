@@ -1,10 +1,10 @@
 package com.ait.toolkit.famous.client.modifiers;
 
-import com.ait.toolkit.core.client.JsObject;
 import com.ait.toolkit.famous.client.core.AnimationConfig;
+import com.ait.toolkit.famous.client.core.Modifier;
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class StateModifier extends JsObject {
+public class StateModifier extends Modifier {
 
 	public StateModifier() {
 		jsObj = createPeer();
