@@ -22,7 +22,7 @@ import com.ait.toolkit.core.client.JsoHelper;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * Configuration object for tween lite animations
+ * Configuration object for the properties of a surface
  */
 public class SurfaceProperties extends JsObject {
 
