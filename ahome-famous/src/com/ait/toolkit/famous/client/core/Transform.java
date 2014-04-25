@@ -9,8 +9,12 @@ public class Transform extends JsObject {
 		jsObj = obj;
 	}
 
+	public static Transform translate(double x, double y) {
+		return translate(x, y, 0);
+	}
+
 	public static native Transform translate(double x, double y, double offset)/*-{
-		var obj = $wnd.aitFamoTransform.translate(x, y);
+		var obj = $wnd.aitFamoTransform.translate(x, y, offset);
 		return @com.ait.toolkit.famous.client.core.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
 
