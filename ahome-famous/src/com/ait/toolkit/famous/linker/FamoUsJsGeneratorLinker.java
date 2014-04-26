@@ -15,7 +15,7 @@ import com.google.gwt.dev.util.DefaultTextOutput;
 /**
  * Linker for the Famo.us library. Makes Famo.us play well with GWT
  */
-@LinkerOrder(LinkerOrder.Order.POST)
+@LinkerOrder(LinkerOrder.Order.PRE)
 public class FamoUsJsGeneratorLinker extends AbstractLinker {
 
 	@Override

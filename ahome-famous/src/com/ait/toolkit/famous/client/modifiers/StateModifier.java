@@ -20,6 +20,12 @@ public class StateModifier extends Modifier {
 		return new $wnd.aitFamoStateModifier();
 	}-*/;
 
+	public native void setTransform(Transform transform)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer
+				.setTransform(transform.@com.ait.toolkit.core.client.JsObject::getJsObj()());
+	}-*/;
+
 	public native void setTransform(Transform transform, FamoAnimation animation)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		peer.setTransform(

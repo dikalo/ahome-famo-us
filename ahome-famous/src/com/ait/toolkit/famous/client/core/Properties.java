@@ -24,9 +24,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 /**
  * Configuration object for the properties of a surface
  */
-public class SurfaceProperties extends JsObject {
+public class Properties extends JsObject {
 
-	public SurfaceProperties() {
+	public Properties() {
 		jsObj = JsoHelper.createObject();
 	}
 

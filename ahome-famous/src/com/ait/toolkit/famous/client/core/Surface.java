@@ -1,12 +1,11 @@
-package com.ait.toolkit.famous.client.surfaces;
+package com.ait.toolkit.famous.client.core;
 
 import com.ait.toolkit.core.client.JsoHelper;
-import com.ait.toolkit.famous.client.core.Surface;
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class ImageSurface extends Surface {
+public class Surface extends RenderNode {
 
-	public ImageSurface() {
+	public Surface() {
 		config = JsoHelper.createObject();
 	}
 
@@ -17,13 +16,17 @@ public class ImageSurface extends Surface {
 	@Override
 	public native JavaScriptObject createPeer()/*-{
 		var config = this.@com.ait.toolkit.famous.client.core.FamoUsNode::getConfig()();
-		var toReturn = new $wnd.aitFamoImageSurface(config);
+		var toReturn = new $wnd.aitFamoSurface(config);
 		this.@com.ait.toolkit.core.client.JsObject::jsObj = toReturn;
 		return toReturn;
 	}-*/;
 
+	public void setContent(String content) {
+		JsoHelper.setAttribute(config, "content", content);
+	}
+
 	private static native void require()/*-{
-		$wnd.aitFamoImageSurface = require('famous/surfaces/ImageSurface');
+		$wnd.aitFamoSurface = require('famous/core/Surface');
 	}-*/;
 
 }
