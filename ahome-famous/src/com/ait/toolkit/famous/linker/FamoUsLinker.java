@@ -23,20 +23,15 @@ public class FamoUsLinker extends CrossSiteIframeLinker {
 	}
 
 	@Override
-	protected String generatePrimaryFragmentString(TreeLogger logger,
-			LinkerContext context, CompilationResult result, String js,
-			int length, ArtifactSet artifacts) throws UnableToCompleteException {
-		String toReturn = super.generatePrimaryFragmentString(logger, context,
-				result, js, length, artifacts);
+	protected String generatePrimaryFragmentString(TreeLogger logger, LinkerContext context, CompilationResult result, String js, int length, ArtifactSet artifacts)
+			throws UnableToCompleteException {
+		String toReturn = super.generatePrimaryFragmentString(logger, context, result, js, length, artifacts);
 
 		/*
-		 * if (toReturn.indexOf("aitFamo") >= 0) { StringBuilder builder = new
-		 * StringBuilder();
+		 * if (toReturn.indexOf("aitFamo") >= 0) { StringBuilder builder = new StringBuilder();
 		 * 
-		 * builder.append("define(function(require, exports, module) {\n");
-		 * builder.append(toReturn); builder.append("\n});"); toReturn =
-		 * builder.toString(); logger.log(TreeLogger.WARN,
-		 * "++++++++++++++++++++++" + toReturn); }
+		 * builder.append("define(function(require, exports, module) {\n"); builder.append(toReturn); builder.append("\n});"); toReturn = builder.toString();
+		 * logger.log(TreeLogger.WARN, "++++++++++++++++++++++" + toReturn); }
 		 */
 
 		// logger.log(TreeLogger.WARN, "++++++++++++++++++++++" + toReturn);
@@ -44,26 +39,20 @@ public class FamoUsLinker extends CrossSiteIframeLinker {
 	}
 
 	@Override
-	protected String generateSelectionScript(TreeLogger logger,
-			LinkerContext context, ArtifactSet artifacts,
-			CompilationResult result) throws UnableToCompleteException {
+	protected String generateSelectionScript(TreeLogger logger, LinkerContext context, ArtifactSet artifacts, CompilationResult result) throws UnableToCompleteException {
 		// return super
 		// .generateSelectionScript(logger, context, artifacts, result);
 
-		return generateFamoStartScript(logger, context,
-				super.generateSelectionScript(logger, context, artifacts,
-						result));
+		return generateFamoStartScript(logger, context, super.generateSelectionScript(logger, context, artifacts, result));
 
 	}
 
-	private String generateFamoStartScript(TreeLogger logger,
-			LinkerContext context, String selectionScriptText) {
+	private String generateFamoStartScript(TreeLogger logger, LinkerContext context, String selectionScriptText) {
 
 		// logger.log(TreeLogger.WARN, "++++++++++++++++++++++"
 		// + selectionScriptText);
 
-		String toReplace = context.getModuleName() + ".succeeded="
-				+ context.getModuleName() + "();";
+		String toReplace = context.getModuleName() + ".succeeded=" + context.getModuleName() + "();";
 
 		// logger.log(TreeLogger.WARN, "++++++++++++++++++++++"
 		// + selectionScriptText.indexOf(toReplace));
@@ -77,21 +66,24 @@ public class FamoUsLinker extends CrossSiteIframeLinker {
 		builder.append(selectionScriptText);
 
 		builder.append(";\ndefine(function(require, exports, module) {\n");
+		builder.append("require('");
+		builder.append(context.getModuleName() + "/" + context.getModuleName() + "-AhomeFamo.js");
+		builder.append("');");
 
 		// core
-		builder.append("aitFamoEngine = require('famous/core/Engine');\n");
-		builder.append("aitFamoTransform = require('famous/core/Transform');\n");
+		// builder.append("aitFamoEngine = require('famous/core/Engine');\n");
+		// builder.append("aitFamoTransform = require('famous/core/Transform');\n");
 
 		// modifier
-		builder.append("aitFamoStateModifier = require('famous/modifiers/StateModifier');\n");
+		// builder.append("aitFamoStateModifier = require('famous/modifiers/StateModifier');\n");
 
 		// surface
-		builder.append("aitFamoImageSurface = require('famous/surfaces/ImageSurface');\n");
+		// builder.append("aitFamoImageSurface = require('famous/surfaces/ImageSurface');\n");
 
 		// inputs
-		builder.append("require('famous/inputs/FastClick');\n");
+		// builder.append("require('famous/inputs/FastClick');\n");
 
-		builder.append(toReplace);
+		// builder.append(toReplace);
 
 		builder.append("\n});");
 

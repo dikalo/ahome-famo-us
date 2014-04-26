@@ -11,6 +11,10 @@ public class ImageSurface extends RenderNode {
 		config = JsoHelper.createObject();
 	}
 
+	static {
+		require();
+	}
+
 	@Override
 	public native JavaScriptObject createPeer()/*-{
 		var config = this.@com.ait.toolkit.famous.client.core.FamoUsNode::getConfig()();
@@ -29,5 +33,9 @@ public class ImageSurface extends RenderNode {
 	public void setContent(String content) {
 		JsoHelper.setAttribute(config, "content", content);
 	}
+
+	private static native void require()/*-{
+		$wnd.aitFamoImageSurface = require('famous/surfaces/ImageSurface');
+	}-*/;
 
 }

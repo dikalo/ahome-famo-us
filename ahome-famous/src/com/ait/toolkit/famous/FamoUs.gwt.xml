@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
     <stylesheet src="famous/core/famous.css" />
+    
+     <set-configuration-property name="user.agent.runtimeWarning" value="false"/>
+    
      <define-linker name="famoUsLinker" class="com.ait.toolkit.famous.linker.FamoUsLinker"/>
     <add-linker name="famoUsLinker"/>
+    
+    <define-linker name="famoUsJsGenLinker" class="com.ait.toolkit.famous.linker.FamoUsJsGeneratorLinker"/>
+    <add-linker name="famoUsJsGenLinker"/>
     
     <inherits name='com.ait.toolkit.core.Core'/>
 </module>
