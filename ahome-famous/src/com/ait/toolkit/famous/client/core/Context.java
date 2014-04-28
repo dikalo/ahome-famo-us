@@ -4,7 +4,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
 
-public class Context extends FamoUsNode {
+public class Context extends EventHandler {
 
 	protected Context(JavaScriptObject peer) {
 		jsObj = peer;
@@ -60,6 +60,8 @@ public class Context extends FamoUsNode {
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		return peer.getPerspective();
 	}-*/;
+
+	// TODO setPerpective
 
 	@Override
 	public JavaScriptObject createPeer() {

@@ -7,7 +7,7 @@ import com.google.gwt.core.client.JsArrayNumber;
 /**
  * Base class of all FamoUs nodes that get drawn to the screen.
  */
-public abstract class RenderNode extends FamoUsNode {
+public abstract class RenderNode extends EventHandler {
 
 	public RenderNode() {
 		jsObj = JsoHelper.createObject();
