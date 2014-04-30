@@ -1,10 +1,9 @@
 package com.ait.toolkit.famous.client.core;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayNumber;
 import com.google.gwt.dom.client.Element;
 
-public class Context extends EventHandler {
+public class Context extends Surface {
 
 	protected Context(JavaScriptObject peer) {
 		jsObj = peer;
@@ -19,24 +18,6 @@ public class Context extends EventHandler {
 	public native void migrate(Element container)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		peer.migrate(container);
-	}-*/;
-
-	/**
-	 * Sets viewport size for Contex
-	 */
-	public void setSize(Size size) {
-		JsArrayNumber values = JsArrayNumber.createArray().cast();
-		values.push(size.getWidth());
-		values.push(size.getHeight());
-		setSize(values);
-	}
-
-	/**
-	 * Sets viewport size for Contex
-	 */
-	public native void setSize(JsArrayNumber values)/*-{
-		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.setSize(values);
 	}-*/;
 
 	/**
