@@ -8,7 +8,7 @@ import com.google.gwt.core.client.JsArrayString;
 /**
  * Base class of all FamoUs nodes that get drawn to the screen.
  */
-public abstract class RenderNode extends EventHandler {
+public abstract class RenderNode extends FamoUsNode {
 
 	public RenderNode() {
 		jsObj = JsoHelper.createObject();
@@ -22,12 +22,19 @@ public abstract class RenderNode extends EventHandler {
 		JsArrayNumber values = JsArrayNumber.createArray().cast();
 		values.push(width);
 		values.push(height);
-		JsoHelper.setAttribute(config, "size", values);
+		_setSize(values);
 	}
 
-	public void setProperties(Properties value) {
-		JsoHelper.setAttribute(config, "properties", value.getJsObj());
-	}
+	private native void _setSize(JavaScriptObject values)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer.setSize(values);
+	}-*/;
+
+	public native void setProperties(Properties value)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer
+				.setProperties(value.@com.ait.toolkit.core.client.JsObject::getJsObj()());
+	}-*/;
 
 	public void setClasses(String... values) {
 		JsArrayString cls = JsArrayString.createArray().cast();
@@ -37,8 +44,9 @@ public abstract class RenderNode extends EventHandler {
 		setClasses(cls);
 	}
 
-	public void setClasses(JsArrayString value) {
-		JsoHelper.setAttribute(config, "classes", value);
-	}
+	public native void setClasses(JsArrayString values)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer.setClasses(values);
+	}-*/;
 
 }

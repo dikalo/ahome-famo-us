@@ -1,19 +1,14 @@
 package com.ait.toolkit.famous.client.core;
 
-import com.ait.toolkit.core.client.JsObject;
-import com.ait.toolkit.core.client.JsoHelper;
-import com.ait.toolkit.core.client.Util;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Base class of all Famo.us nodes
  */
-public abstract class FamoUsNode extends JsObject {
-
-	protected JavaScriptObject config;
+public abstract class FamoUsNode extends EventHandler {
 
 	public FamoUsNode() {
-		config = JsoHelper.createObject();
+
 	}
 
 	public FamoUsNode(JavaScriptObject peer) {
@@ -57,10 +52,5 @@ public abstract class FamoUsNode extends JsObject {
 	}-*/;
 
 	public abstract JavaScriptObject createPeer();
-
-	public JavaScriptObject getConfig() {
-		Util.cleanObjectId(config);
-		return config;
-	}
 
 }

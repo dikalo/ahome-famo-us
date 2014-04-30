@@ -1,10 +1,27 @@
 package com.ait.toolkit.famous.client.core;
 
+import com.ait.toolkit.core.client.JsObject;
 import com.ait.toolkit.famous.client.events.EventData;
 import com.ait.toolkit.famous.client.events.EventHandlerRegistration;
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class EventHandler extends FamoUsNode {
+/**
+ * EventHandler forwards received events to a set of provided callback functions.
+ * <p>
+ * It allows events to be captured, processed, and optionally piped through to other event handlers.
+ * 
+ * @author Alain Ekambi
+ * 
+ */
+public class EventHandler extends JsObject {
+
+	static {
+		require();
+	}
+
+	public EventHandler() {
+		jsObj = createPeer();
+	}
 
 	/**
 	 * Trigger an event, sending to all downstream handlers listening for provided 'type' key.
@@ -68,10 +85,12 @@ public class EventHandler extends FamoUsNode {
 
 	}-*/;
 
-	@Override
-	public JavaScriptObject createPeer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public native JavaScriptObject createPeer()/*-{
+		return new $wnd.aitFamoEventHandler();
+	}-*/;
+
+	private static native void require()/*-{
+		$wnd.aitFamoEventHandler = require('famous/core/EventHandler');
+	}-*/;
 
 }
