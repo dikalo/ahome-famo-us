@@ -22,18 +22,6 @@ public class Context extends EventHandler {
 	}-*/;
 
 	/**
-	 * Gets viewport size for Context.
-	 */
-	public native Size getSize()/*-{
-		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		var s = peer.getSize();
-		var o = new $wnd.Object();
-		o.width = s[1];
-		o.height = s[2];
-		return @com.ait.toolkit.famous.client.core.Size::from(Lcom/google/gwt/core/client/JavaScriptObject;)(o);
-	}-*/;
-
-	/**
 	 * Sets viewport size for Contex
 	 */
 	public void setSize(Size size) {
@@ -61,7 +49,13 @@ public class Context extends EventHandler {
 		return peer.getPerspective();
 	}-*/;
 
-	// TODO setPerpective
+	/**
+	 * Set current perspective of this context in pixels.
+	 */
+	public native void setPerspective(double value)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer.setPerspective(value);
+	}-*/;
 
 	@Override
 	public JavaScriptObject createPeer() {

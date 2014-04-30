@@ -4,7 +4,7 @@ import com.ait.toolkit.famous.client.events.EventData;
 import com.ait.toolkit.famous.client.events.EventHandlerRegistration;
 import com.google.gwt.core.client.JavaScriptObject;
 
-public abstract class EventHandler extends FamoUsNode {
+public class EventHandler extends FamoUsNode {
 
 	/**
 	 * Trigger an event, sending to all downstream handlers listening for provided 'type' key.
@@ -67,5 +67,11 @@ public abstract class EventHandler extends FamoUsNode {
 				.unpipe(target.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 
 	}-*/;
+
+	@Override
+	public JavaScriptObject createPeer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

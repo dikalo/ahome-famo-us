@@ -30,78 +30,16 @@ public class Properties extends JsObject {
 		jsObj = JsoHelper.createObject();
 	}
 
+	public static Properties create() {
+		return new Properties();
+	}
+
 	public void setProperty(String propertyName, double value) {
 		JsoHelper.setAttribute(jsObj, propertyName, value);
 	}
 
 	public void setProperty(String propertyName, String value) {
 		JsoHelper.setAttribute(jsObj, propertyName, value);
-	}
-
-	/**
-	 * If useFrames is true, the tweens's timing will be based on frames instead of seconds because it is intially added to the root frames-based timeline. This causes both its
-	 * duration and delay to be based on frames. An animations's timing mode is always determined by its parent timeline.
-	 * 
-	 * @param value
-	 */
-	public void setUseFrames(boolean value) {
-		JsoHelper.setAttribute(jsObj, "useFrames", value);
-	}
-
-	/**
-	 * Normally when you create a tween, it begins rendering on the very next frame (update cycle) unless you specify a delay. However, if you prefer to force the tween to render
-	 * immediately when it is created, set immediateRender to true. Or to prevent a from() from rendering immediately, set immediateRender to false. By default, from() tweens set
-	 * immediateRender to true.
-	 */
-	public void setImmediateRenderer(boolean value) {
-		JsoHelper.setAttribute(jsObj, "immediateRenderer", value);
-	}
-
-	/**
-	 * A function that should be called when the tween begins (when its time changes from 0 to some other value which can happen more than once if the tween is restarted multiple
-	 * times).
-	 */
-	public void setOnStart(Function callback) {
-		JsoHelper.setAttribute(jsObj, "onStart", fromFunction(callback));
-	}
-
-	/**
-	 * A function that should be called every time the tween updates (on every frame while the tween is active)
-	 */
-	public void setOnUpdate(Function callback) {
-		JsoHelper.setAttribute(jsObj, "onUpdate", fromFunction(callback));
-	}
-
-	/**
-	 * A function that should be called when the tween has reached its beginning again from the reverse direction. For example, if reverse() is called the tween will move back
-	 * towards its beginning and when its time reaches 0, onReverseComplete will be called. This can also happen if the tween is placed in a TimelineLite or TimelineMax instance
-	 * that gets reversed and plays the tween backwards to (or past) the beginning.
-	 */
-	public void setOnReverseComplete(Function callback) {
-		JsoHelper.setAttribute(jsObj, "onReverseComplete", fromFunction(callback));
-	}
-
-	/**
-	 * If true, the tween will pause itself immediately upon creation.
-	 */
-	public void setPaused(boolean value) {
-		JsoHelper.setAttribute(jsObj, "paused", value);
-	}
-
-	/**
-	 * Controls how (and if) other tweens of the same target are overwritten. There are several modes to choose from, but "auto" is the default (although you can change the default
-	 * mode using the TweenLite.defaultOverwrite property)
-	 */
-	public void setOverwrite(String value) {
-		JsoHelper.setAttribute(jsObj, "overwrite", value);
-	}
-
-	/**
-	 * Controls how (and if) other tweens of the same target are overwritten. There are several modes to choose from, but "auto" is the default (although you can change the default
-	 * mode using the TweenLite.defaultOverwrite property)
-	 */
-	public void setOverwrite(int value) {
-		JsoHelper.setAttribute(jsObj, "overwrite", value);
 	}
 
 	// CSS properties
@@ -534,12 +472,14 @@ public class Properties extends JsObject {
 		setProperty("letterSpacing", value);
 	}
 
-	public void setLineHeight(String value) {
+	public Properties setLineHeight(String value) {
 		setProperty("lineHeight", value);
+		return this;
 	}
 
-	public void setQuotes(String value) {
+	public Properties setQuotes(String value) {
 		setProperty("quotes", value);
+		return this;
 	}
 
 	public void setBorderCollapse(String value) {
@@ -566,8 +506,9 @@ public class Properties extends JsObject {
 		setProperty("tableLayout", value);
 	}
 
-	public void setTextAlign(String value) {
+	public Properties setTextAlign(String value) {
 		setProperty("textAlign", value);
+		return this;
 	}
 
 	public void setTextDecoration(String value) {

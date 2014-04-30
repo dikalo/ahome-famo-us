@@ -30,6 +30,18 @@ public abstract class FamoUsNode extends JsObject {
 		};
 	}
 
+	/**
+	 * 
+	 */
+	public native Size getSize()/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		var s = peer.getSize();
+		var o = new $wnd.Object();
+		o.width = s[1];
+		o.height = s[2];
+		return @com.ait.toolkit.famous.client.core.Size::from(Lcom/google/gwt/core/client/JavaScriptObject;)(o);
+	}-*/;
+
 	public native FamoUsNode add(FamoUsNode child)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		var childPeer = child.@com.ait.toolkit.famous.client.core.FamoUsNode::createPeer()();
