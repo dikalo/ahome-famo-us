@@ -39,7 +39,7 @@ public abstract class FamoUsNode extends EventHandler {
 
 	public native FamoUsNode add(FamoUsNode child)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		var childPeer = child.@com.ait.toolkit.famous.client.core.FamoUsNode::createPeer()();
+		var childPeer = child.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		var toReturn = peer.add(childPeer);
 		return @com.ait.toolkit.famous.client.core.FamoUsNode::instance(Lcom/google/gwt/core/client/JavaScriptObject;)(toReturn);
 	}-*/;
