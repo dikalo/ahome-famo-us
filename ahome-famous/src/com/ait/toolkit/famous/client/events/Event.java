@@ -15,27 +15,17 @@
  */
 package com.ait.toolkit.famous.client.events;
 
-import com.ait.toolkit.core.client.JsObject;
+import com.ait.toolkit.core.client.BaseEvent;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Base class of all Famous events
  */
-public class Event extends JsObject {
+public class Event extends BaseEvent {
 
 	protected Event(JavaScriptObject peer) {
 		jsObj = peer;
 	}
-
-	public native void preventDefault()/*-{
-		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.preventDefault();
-	}-*/;
-
-	public native void stopPropagation()/*-{
-		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.stopPropagation();
-	}-*/;
 
 	public native void stopImmediatePropagation()/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
