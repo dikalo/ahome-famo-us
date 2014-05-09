@@ -1,8 +1,24 @@
+/*
+ Copyright (c) 2014 Ahomé Innovation Technologies. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 package com.ait.toolkit.famous.client.core;
 
 import com.ait.toolkit.core.client.Function;
 import com.ait.toolkit.famous.client.events.EventData;
 import com.ait.toolkit.famous.client.events.EventHandlerRegistration;
+import com.ait.toolkit.famous.client.ui.Context;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
@@ -30,7 +46,7 @@ public class Engine {
 	public static native Context registerContect(Context context)/*-{
 		var obj = $wnd.aitFamoEngine
 				.createContext(context.@com.ait.toolkit.core.client.JsObject::getJsObj()());
-		return @com.ait.toolkit.famous.client.core.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
+		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
 
 	/**
@@ -40,7 +56,7 @@ public class Engine {
 	 */
 	public static native Context createContext()/*-{
 		var context = $wnd.aitFamoEngine.createContext();
-		return @com.ait.toolkit.famous.client.core.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
+		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
 	}-*/;
 
 	/**
@@ -52,7 +68,7 @@ public class Engine {
 	 */
 	public static native Context createContext(Element el)/*-{
 		var context = $wnd.aitFamoEngine.createContext(el);
-		return @com.ait.toolkit.famous.client.core.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
+		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
 	}-*/;
 
 	/**

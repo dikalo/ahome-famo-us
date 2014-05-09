@@ -13,17 +13,27 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.ait.toolkit.famous.client.events;
+package com.ait.toolkit.famous.client.ui;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-/**
- *
- */
-public class UIEvent extends Event {
+public class ImageSurface extends Surface {
 
-	protected UIEvent(JavaScriptObject peer) {
-		super(peer);
+	public ImageSurface() {
+		jsObj = createPeer();
 	}
+
+	static {
+		require();
+	}
+
+	@Override
+	public native JavaScriptObject createPeer()/*-{
+		return new $wnd.aitFamoImageSurface();
+	}-*/;
+
+	private static native void require()/*-{
+		$wnd.aitFamoImageSurface = require('famous/surfaces/ImageSurface');
+	}-*/;
 
 }

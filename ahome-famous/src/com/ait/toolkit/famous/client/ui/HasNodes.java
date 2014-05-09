@@ -13,17 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.ait.toolkit.famous.client.events;
+package com.ait.toolkit.famous.client.ui;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
-/**
- *
- */
-public class UIEvent extends Event {
-
-	protected UIEvent(JavaScriptObject peer) {
-		super(peer);
-	}
+public interface HasNodes {
 
 }

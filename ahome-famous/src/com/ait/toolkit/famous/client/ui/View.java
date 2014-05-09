@@ -13,10 +13,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.ait.toolkit.famous.client.core;
+package com.ait.toolkit.famous.client.ui;
 
-import com.google.gwt.core.client.JavaScriptObject;
+/**
+ * Base class of all FamoUs nodes that get drawn to the screen.
+ */
+public abstract class View extends RenderNode {
 
-public interface NextTickHandler {
-	public void onNextTick(JavaScriptObject window);
 }
