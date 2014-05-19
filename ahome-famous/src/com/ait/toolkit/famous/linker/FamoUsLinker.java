@@ -78,9 +78,9 @@ public class FamoUsLinker extends CrossSiteIframeLinker {
 		// + selectionScriptText.indexOf(toReplace));
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(selectionScriptText);
+		// builder.append(selectionScriptText);
 
-		builder.append(";\ndefine(function(require, exports, module) {\n");
+		builder.append("define(function(require, exports, module) {\n");
 		builder.append("require('");
 		builder.append(context.getModuleName() + "/" + context.getModuleName() + "-AhomeFamo.js");
 		builder.append("');");

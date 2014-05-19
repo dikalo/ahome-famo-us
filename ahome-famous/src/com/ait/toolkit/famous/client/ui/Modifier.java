@@ -42,11 +42,22 @@ public class Modifier extends FamoUsNode {
 	/**
 	 * Affine transformation matrix
 	 */
-	public native Modifier setTransform(Transform transform)/*-{
+	public native void setTransform(Transform transform)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		peer
-				.setTransform(transform.@com.ait.toolkit.core.client.JsObject::getJsObj()());
-		return this;
+				.setTransform(function() {
+					var o = transform.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+					return o;
+				});
+	}-*/;
+
+	public native void setTransform(TransformFunction transformFn)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer
+				.setTransform(function() {
+					var toReturnPeer = transformFn.@com.ait.toolkit.famous.client.ui.TransformFunction::createTransform()();
+					return (toReturnPeer.@com.ait.toolkit.core.client.JsObject::getJsObj()());
+				});
 	}-*/;
 
 	/**

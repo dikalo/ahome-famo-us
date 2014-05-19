@@ -42,6 +42,11 @@ public class Transform extends JsObject {
 		return @com.ait.toolkit.famous.client.ui.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
 
+	public static native Transform rotateY(double value)/*-{
+		var obj = $wnd.aitFamoTransform.rotateY(value);
+		return @com.ait.toolkit.famous.client.ui.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
+	}-*/;
+
 	private static native void require()/*-{
 		$wnd.aitFamoTransform = require('famous/core/Transform');
 	}-*/;

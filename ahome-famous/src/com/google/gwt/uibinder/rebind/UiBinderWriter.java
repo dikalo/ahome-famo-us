@@ -100,24 +100,20 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Escape text that will be part of a string literal to be interpreted at
-	 * runtime as an HTML attribute value.
+	 * Escape text that will be part of a string literal to be interpreted at runtime as an HTML attribute value.
 	 */
 	public static String escapeAttributeText(String text) {
 		text = escapeText(text, false);
 
 		/*
-		 * Escape single-quotes to make them safe to be interpreted at runtime
-		 * as an HTML attribute value (for which we by convention use single
-		 * quotes).
+		 * Escape single-quotes to make them safe to be interpreted at runtime as an HTML attribute value (for which we by convention use single quotes).
 		 */
 		text = text.replaceAll("'", "&#39;");
 		return text;
 	}
 
 	/**
-	 * Escape text that will be part of a string literal to be interpreted at
-	 * runtime as HTML, optionally preserving whitespace.
+	 * Escape text that will be part of a string literal to be interpreted at runtime as HTML, optionally preserving whitespace.
 	 */
 	public static String escapeText(String text, boolean preserveWhitespace) {
 		// Replace reserved XML characters with entities. Note that we *don't*
@@ -135,8 +131,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Escape characters that would mess up interpretation of this string as a
-	 * string literal in generated code (that is, protect \, \n and " ).
+	 * Escape characters that would mess up interpretation of this string as a string literal in generated code (that is, protect \, \n and " ).
 	 */
 	public static String escapeTextForJavaStringLiteral(String text) {
 		text = text.replace("\\", "\\\\");
@@ -147,8 +142,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Returns a list of the given type and all its superclasses and implemented
-	 * interfaces in a breadth-first traversal.
+	 * Returns a list of the given type and all its superclasses and implemented interfaces in a breadth-first traversal.
 	 * 
 	 * @param type
 	 *            the base type
@@ -188,11 +182,9 @@ public class UiBinderWriter implements Statements {
 	 * Searches for methods named onBrowserEvent in a {@code type}.
 	 */
 	private static JMethod[] findEventMethods(JClassType type) {
-		List<JMethod> methods = new ArrayList<JMethod>(Arrays.asList(type
-				.getInheritableMethods()));
+		List<JMethod> methods = new ArrayList<JMethod>(Arrays.asList(type.getInheritableMethods()));
 
-		for (Iterator<JMethod> iterator = methods.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<JMethod> iterator = methods.iterator(); iterator.hasNext();) {
 			JMethod jMethod = iterator.next();
 			if (!jMethod.getName().equals("onBrowserEvent")) {
 				iterator.remove();
@@ -203,9 +195,8 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Scan the base class for the getter methods. Assumes getters begin with
-	 * "get". See {@link #validateRendererGetters(JClassType)} for a method that
-	 * guarantees this method will succeed.
+	 * Scan the base class for the getter methods. Assumes getters begin with "get". See {@link #validateRendererGetters(JClassType)} for a method that guarantees this method will
+	 * succeed.
 	 */
 	private static List<JMethod> findGetterNames(JClassType owner) {
 		List<JMethod> ret = new ArrayList<JMethod>();
@@ -219,9 +210,8 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Scans a class for a method named "render". Returns its parameters except
-	 * for the first one. See {@link #validateRenderParameters(JClassType)} for
-	 * a method that guarantees this method will succeed.
+	 * Scans a class for a method named "render". Returns its parameters except for the first one. See {@link #validateRenderParameters(JClassType)} for a method that guarantees
+	 * this method will succeed.
 	 */
 	private static JParameter[] findRenderParameters(JClassType owner) {
 		JMethod[] methods = owner.getInheritableMethods();
@@ -254,15 +244,11 @@ public class UiBinderWriter implements Statements {
 	}
 
 	private static String formatMethodError(JMethod eventMethod) {
-		return "\""
-				+ eventMethod.getReadableDeclaration(true, true, true, true,
-						true) + "\"" + " of "
-				+ eventMethod.getEnclosingType().getQualifiedSourceName();
+		return "\"" + eventMethod.getReadableDeclaration(true, true, true, true, true) + "\"" + " of " + eventMethod.getEnclosingType().getQualifiedSourceName();
 	}
 
 	/**
-	 * Determine the field name a getter is trying to retrieve. Assumes getters
-	 * begin with "get".
+	 * Determine the field name a getter is trying to retrieve. Assumes getters begin with "get".
 	 */
 	private static String getterToFieldName(String name) {
 		String fieldName = name.substring(3);
@@ -289,8 +275,7 @@ public class UiBinderWriter implements Statements {
 	private final MortalLogger logger;
 
 	/**
-	 * Class names of parsers for various ui types, keyed by the classname of
-	 * the UI class they can build.
+	 * Class names of parsers for various ui types, keyed by the classname of the UI class they can build.
 	 */
 	private final Map<String, String> elementParsers = new HashMap<String, String>();
 
@@ -347,15 +332,13 @@ public class UiBinderWriter implements Statements {
 	 */
 	private final LinkedList<String> attachSectionElements = new LinkedList<String>();
 	/**
-	 * Maps from field element name to the temporary attach record variable
-	 * name.
+	 * Maps from field element name to the temporary attach record variable name.
 	 */
 	private final Map<String, String> attachedVars = new HashMap<String, String>();
 
 	private int nextAttachVar = 0;
 	/**
-	 * Stack of statements to be executed after we detach the current attach
-	 * section.
+	 * Stack of statements to be executed after we detach the current attach section.
 	 */
 	private final LinkedList<List<String>> detachStatementsStack = new LinkedList<List<String>>();
 	private final AttributeParsers attributeParsers;
@@ -365,12 +348,9 @@ public class UiBinderWriter implements Statements {
 	private final String binderUri;
 	private final boolean isRenderer;
 
-	public UiBinderWriter(JClassType baseClass, String implClassName,
-			String templatePath, TypeOracle oracle, MortalLogger logger,
-			FieldManager fieldManager, MessagesWriter messagesWriter,
-			DesignTimeUtils designTime, UiBinderContext uiBinderCtx,
-			boolean useSafeHtmlTemplates, boolean useLazyWidgetBuilders,
-			String binderUri) throws UnableToCompleteException {
+	public UiBinderWriter(JClassType baseClass, String implClassName, String templatePath, TypeOracle oracle, MortalLogger logger, FieldManager fieldManager,
+			MessagesWriter messagesWriter, DesignTimeUtils designTime, UiBinderContext uiBinderCtx, boolean useSafeHtmlTemplates, boolean useLazyWidgetBuilders, String binderUri)
+			throws UnableToCompleteException {
 		this.baseClass = baseClass;
 		this.implClassName = implClassName;
 		this.oracle = oracle;
@@ -387,50 +367,38 @@ public class UiBinderWriter implements Statements {
 		this.htmlTemplates = new HtmlTemplatesWriter(fieldManager, logger);
 
 		// Check for possible misuse 'GWT.create(UiBinder.class)'
-		JClassType uibinderItself = oracle.findType(UiBinder.class
-				.getCanonicalName());
+		JClassType uibinderItself = oracle.findType(UiBinder.class.getCanonicalName());
 		if (uibinderItself.equals(baseClass)) {
-			die("You must use a subtype of UiBinder in GWT.create(). E.g.,\n"
-					+ "  interface Binder extends UiBinder<Widget, MyClass> {}\n"
-					+ "  GWT.create(Binder.class);");
+			die("You must use a subtype of UiBinder in GWT.create(). E.g.,\n" + "  interface Binder extends UiBinder<Widget, MyClass> {}\n" + "  GWT.create(Binder.class);");
 		}
 
 		JClassType[] uiBinderTypes = baseClass.getImplementedInterfaces();
 		if (uiBinderTypes.length == 0) {
-			throw new RuntimeException("No implemented interfaces for "
-					+ baseClass.getName());
+			throw new RuntimeException("No implemented interfaces for " + baseClass.getName());
 		}
 		JClassType uiBinderType = uiBinderTypes[0];
 
-		JClassType[] typeArgs = uiBinderType.isParameterized() == null ? new JClassType[0]
-				: uiBinderType.isParameterized().getTypeArgs();
+		JClassType[] typeArgs = uiBinderType.isParameterized() == null ? new JClassType[0] : uiBinderType.isParameterized().getTypeArgs();
 
 		String binderType = uiBinderType.getName();
 
-		JClassType uiRendererClass = getOracle().findType(
-				UiRenderer.class.getName());
+		JClassType uiRendererClass = getOracle().findType(UiRenderer.class.getName());
 		if (uiBinderType.isAssignableTo(uibinderItself)) {
 			if (typeArgs.length < 2) {
-				throw new RuntimeException(
-						"Root and owner type parameters are required for type %s"
-								+ binderType);
+				throw new RuntimeException("Root and owner type parameters are required for type %s" + binderType);
 			}
 			uiRootType = typeArgs[0];
 			uiOwnerType = typeArgs[1];
 			isRenderer = false;
 		} else if (uiBinderType.isAssignableTo(uiRendererClass)) {
 			if (typeArgs.length >= 1) {
-				throw new RuntimeException(
-						"UiRenderer is not a parameterizable type in "
-								+ binderType);
+				throw new RuntimeException("UiRenderer is not a parameterizable type in " + binderType);
 			}
 			if (!useSafeHtmlTemplates) {
-				die("Configuration property UiBinder.useSafeHtmlTemplates\n"
-						+ "  must be set to true to generate a UiRenderer");
+				die("Configuration property UiBinder.useSafeHtmlTemplates\n" + "  must be set to true to generate a UiRenderer");
 			}
 			if (!useLazyWidgetBuilders) {
-				die("Configuration property UiBinder.useLazyWidgetBuilders\n"
-						+ "  must be set to true to generate a UiRenderer");
+				die("Configuration property UiBinder.useLazyWidgetBuilders\n" + "  must be set to true to generate a UiRenderer");
 			}
 
 			// UiRenderers do not need owners but UiBinder generation needs some
@@ -445,25 +413,19 @@ public class UiBinderWriter implements Statements {
 			throw new UnableToCompleteException();
 		}
 
-		isRenderableClassType = oracle.findType(IsRenderable.class
-				.getCanonicalName());
-		lazyDomElementClass = oracle.findType(LazyDomElement.class
-				.getCanonicalName());
+		isRenderableClassType = oracle.findType(IsRenderable.class.getCanonicalName());
+		lazyDomElementClass = oracle.findType(LazyDomElement.class.getCanonicalName());
 
 		ownerClass = new OwnerClass(uiOwnerType, logger, uiBinderCtx);
-		bundleClass = new ImplicitClientBundle(
-				baseClass.getPackage().getName(), this.implClassName,
-				CLIENT_BUNDLE_FIELD, logger);
-		handlerEvaluator = new HandlerEvaluator(ownerClass, logger, oracle,
-				useLazyWidgetBuilders);
+		bundleClass = new ImplicitClientBundle(baseClass.getPackage().getName(), this.implClassName, CLIENT_BUNDLE_FIELD, logger);
+		handlerEvaluator = new HandlerEvaluator(ownerClass, logger, oracle, useLazyWidgetBuilders);
 
 		attributeParsers = new AttributeParsers(oracle, fieldManager, logger);
 	}
 
 	/**
-	 * Add a statement to be executed right after the current attached element
-	 * is detached. This is useful for doing things that might be expensive
-	 * while the element is attached to the DOM.
+	 * Add a statement to be executed right after the current attached element is detached. This is useful for doing things that might be expensive while the element is attached to
+	 * the DOM.
 	 * 
 	 * @param format
 	 * @param args
@@ -474,26 +436,22 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Add a statement to be run after everything has been instantiated, in the
-	 * style of {@link String#format}.
+	 * Add a statement to be run after everything has been instantiated, in the style of {@link String#format}.
 	 */
 	public void addInitStatement(String format, Object... params) {
 		initStatements.add(formatCode(format, params));
 	}
 
 	/**
-	 * Adds a statement to the block run after fields are declared, in the style
-	 * of {@link String#format}.
+	 * Adds a statement to the block run after fields are declared, in the style of {@link String#format}.
 	 */
 	public void addStatement(String format, Object... args) {
 		String code = formatCode(format, args);
 
 		if (useLazyWidgetBuilders) {
 			/**
-			 * I'm intentionally over-simplifying this and assuming that the
-			 * input comes always in the format: field.somestatement(); Thus,
-			 * field can be extracted easily and the element parsers don't need
-			 * to be changed all at once.
+			 * I'm intentionally over-simplifying this and assuming that the input comes always in the format: field.somestatement(); Thus, field can be extracted easily and the
+			 * element parsers don't need to be changed all at once.
 			 */
 			int idx = code.indexOf(".");
 			String fieldName = code.substring(0, idx);
@@ -504,18 +462,13 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Begin a section where a new attachable element is being parsed--that is,
-	 * one that will be constructed as a big innerHTML string, and then briefly
-	 * attached to the dom to allow fields accessing its to be filled (at the
-	 * moment, HasHTMLParser, HTMLPanelParser, and DomElementParser.).
+	 * Begin a section where a new attachable element is being parsed--that is, one that will be constructed as a big innerHTML string, and then briefly attached to the dom to
+	 * allow fields accessing its to be filled (at the moment, HasHTMLParser, HTMLPanelParser, and DomElementParser.).
 	 * <p>
-	 * Succeeding calls made to {@link #ensureAttached} and
-	 * {@link #ensureCurrentFieldAttached} must refer to children of this
-	 * element, until {@link #endAttachedSection} is called.
+	 * Succeeding calls made to {@link #ensureAttached} and {@link #ensureCurrentFieldAttached} must refer to children of this element, until {@link #endAttachedSection} is called.
 	 * 
 	 * @param element
-	 *            Java expression for the generated code that will return the
-	 *            dom element to be attached.
+	 *            Java expression for the generated code that will return the dom element to be attached.
 	 */
 	public void beginAttachedSection(String element) {
 		attachSectionElements.addFirst(element);
@@ -523,22 +476,18 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Declare a field that will hold an Element instance. Returns a token that
-	 * the caller must set as the id attribute of that element in whatever
-	 * innerHTML expression will reproduce it at runtime.
+	 * Declare a field that will hold an Element instance. Returns a token that the caller must set as the id attribute of that element in whatever innerHTML expression will
+	 * reproduce it at runtime.
 	 * <P>
-	 * In the generated code, this token will be replaced by an expression to
-	 * generate a unique dom id at runtime. Further code will be generated to be
-	 * run after widgets are instantiated, to use that dom id in a
-	 * getElementById call and assign the Element instance to its field.
+	 * In the generated code, this token will be replaced by an expression to generate a unique dom id at runtime. Further code will be generated to be run after widgets are
+	 * instantiated, to use that dom id in a getElementById call and assign the Element instance to its field.
 	 * 
 	 * @param fieldName
 	 *            The name of the field being declared
 	 * @param ancestorField
 	 *            The name of fieldName parent
 	 */
-	public String declareDomField(XMLElement source, String fieldName,
-			String ancestorField) throws UnableToCompleteException {
+	public String declareDomField(XMLElement source, String fieldName, String ancestorField) throws UnableToCompleteException {
 		ensureAttached();
 		String name = declareDomIdHolder(fieldName);
 
@@ -547,53 +496,37 @@ public class UiBinderWriter implements Statements {
 			FieldWriter field = fieldManager.require(fieldName);
 
 			/**
-			 * But if the owner field is an instance of LazyDomElement then the
-			 * code can be optimized, no cast is needed and the getter doesn't
-			 * need to be called in its ancestral.
+			 * But if the owner field is an instance of LazyDomElement then the code can be optimized, no cast is needed and the getter doesn't need to be called in its ancestral.
 			 */
 			if (isOwnerFieldLazyDomElement(fieldName)) {
-				field.setInitializer(formatCode("new %s(%s)",
-						field.getQualifiedSourceName(),
-						fieldManager.convertFieldToGetter(name)));
+				field.setInitializer(formatCode("new %s(%s)", field.getQualifiedSourceName(), fieldManager.convertFieldToGetter(name)));
 			} else {
 
-				field.setInitializer(formatCode("new %s(%s).get().cast()",
-						LazyDomElement.class.getCanonicalName(),
-						fieldManager.convertFieldToGetter(name)));
+				field.setInitializer(formatCode("new %s(%s).get().cast()", LazyDomElement.class.getCanonicalName(), fieldManager.convertFieldToGetter(name)));
 
 				// The dom must be created by its ancestor.
-				fieldManager.require(ancestorField).addAttachStatement(
-						fieldManager.convertFieldToGetter(fieldName) + ";");
+				fieldManager.require(ancestorField).addAttachStatement(fieldManager.convertFieldToGetter(fieldName) + ";");
 			}
 		} else {
 			setFieldInitializer(fieldName, "null");
-			addInitStatement(
-					"%s = com.google.gwt.dom.client.Document.get().getElementById(%s).cast();",
-					fieldName, name);
+			addInitStatement("%s = com.google.gwt.dom.client.Document.get().getElementById(%s).cast();", fieldName, name);
 			addInitStatement("%s.removeAttribute(\"id\");", fieldName);
 		}
 
-		return tokenForStringExpression(source,
-				fieldManager.convertFieldToGetter(name));
+		return tokenForStringExpression(source, fieldManager.convertFieldToGetter(name));
 	}
 
 	/**
-	 * Declare a variable that will be filled at runtime with a unique id, safe
-	 * for use as a dom element's id attribute. For {@code UiRenderer} based
-	 * code, elements corresponding to a ui:field, need and id initialized to a
-	 * value that depends on the {@code fieldName}. For all other cases let
-	 * {@code fieldName} be {@code null}.
+	 * Declare a variable that will be filled at runtime with a unique id, safe for use as a dom element's id attribute. For {@code UiRenderer} based code, elements corresponding
+	 * to a ui:field, need and id initialized to a value that depends on the {@code fieldName}. For all other cases let {@code fieldName} be {@code null}.
 	 * 
 	 * @param fieldName
 	 *            name of the field corresponding to this variable.
 	 * @return that variable's name.
 	 */
-	public String declareDomIdHolder(String fieldName)
-			throws UnableToCompleteException {
+	public String declareDomIdHolder(String fieldName) throws UnableToCompleteException {
 		String domHolderName = "domId" + domId++;
-		FieldWriter domField = fieldManager.registerField(
-				FieldWriterType.DOM_ID_HOLDER,
-				oracle.findType(String.class.getName()), domHolderName);
+		FieldWriter domField = fieldManager.registerField(FieldWriterType.DOM_ID_HOLDER, oracle.findType(String.class.getName()), domHolderName);
 		if (isRenderer && fieldName != null) {
 			domField.setInitializer("buildInnerId(\"" + fieldName + "\", uiId)");
 		} else {
@@ -604,24 +537,20 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * If this element has a gwt:field attribute, create a field for it of the
-	 * appropriate type, and return the field name. If no gwt:field attribute is
-	 * found, do nothing and return null
+	 * If this element has a gwt:field attribute, create a field for it of the appropriate type, and return the field name. If no gwt:field attribute is found, do nothing and
+	 * return null
 	 * 
 	 * @return The new field name, or null if no field is created
 	 */
-	public String declareFieldIfNeeded(XMLElement elem)
-			throws UnableToCompleteException {
+	public String declareFieldIfNeeded(XMLElement elem) throws UnableToCompleteException {
 		String fieldName = getFieldName(elem);
 		if (fieldName != null) {
 
 			/**
-			 * We can switch types if useLazyWidgetBuilders is enabled and the
-			 * respective owner field is a LazyDomElement.
+			 * We can switch types if useLazyWidgetBuilders is enabled and the respective owner field is a LazyDomElement.
 			 */
 			if (useLazyWidgetBuilders && isOwnerFieldLazyDomElement(fieldName)) {
-				fieldManager.registerFieldForLazyDomElement(
-						findFieldType(elem), ownerClass.getUiField(fieldName));
+				fieldManager.registerFieldForLazyDomElement(findFieldType(elem), ownerClass.getUiField(fieldName));
 			} else {
 				fieldManager.registerField(findFieldType(elem), fieldName);
 			}
@@ -630,22 +559,14 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Declare a {@link RenderableStamper} instance that will be filled at
-	 * runtime with a unique token. This instance can then be used to stamp a
-	 * single {@link IsRenderable}.
+	 * Declare a {@link RenderableStamper} instance that will be filled at runtime with a unique token. This instance can then be used to stamp a single {@link IsRenderable}.
 	 * 
 	 * @return that variable's name.
 	 */
 	public String declareRenderableStamper() throws UnableToCompleteException {
-		String renderableStamperName = "renderableStamper"
-				+ renderableStamper++;
-		FieldWriter domField = fieldManager.registerField(
-				FieldWriterType.RENDERABLE_STAMPER,
-				oracle.findType(RenderableStamper.class.getName()),
-				renderableStamperName);
-		domField.setInitializer(formatCode(
-				"new %s(com.google.gwt.dom.client.Document.get().createUniqueId())",
-				RenderableStamper.class.getName()));
+		String renderableStamperName = "renderableStamper" + renderableStamper++;
+		FieldWriter domField = fieldManager.registerField(FieldWriterType.RENDERABLE_STAMPER, oracle.findType(RenderableStamper.class.getName()), renderableStamperName);
+		domField.setInitializer(formatCode("new %s(com.google.gwt.dom.client.Document.get().createUniqueId())", RenderableStamper.class.getName()));
 
 		return renderableStamperName;
 	}
@@ -653,17 +574,14 @@ public class UiBinderWriter implements Statements {
 	/**
 	 * Writes a new SafeHtml template to the generated BinderImpl.
 	 * 
-	 * @return The invocation of the SafeHtml template function with the
-	 *         arguments filled in
+	 * @return The invocation of the SafeHtml template function with the arguments filled in
 	 */
-	public String declareTemplateCall(String html, String fieldName)
-			throws IllegalArgumentException {
+	public String declareTemplateCall(String html, String fieldName) throws IllegalArgumentException {
 		if (!useSafeHtmlTemplates) {
 			return '"' + html + '"';
 		}
 		FieldWriter w = fieldManager.lookup(fieldName);
-		HtmlTemplateMethodWriter templateMethod = htmlTemplates
-				.addSafeHtmlTemplate(html, tokenator);
+		HtmlTemplateMethodWriter templateMethod = htmlTemplates.addSafeHtmlTemplate(html, tokenator);
 		if (useLazyWidgetBuilders) {
 			w.setHtml(templateMethod.getIndirectTemplateCall());
 		} else {
@@ -673,46 +591,37 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Given a string containing tokens returned by
-	 * {@link #tokenForStringExpression}, {@link #tokenForSafeHtmlExpression} or
-	 * {@link #declareDomField}, return a string with those tokens replaced by
-	 * the appropriate expressions. (It is not normally necessary for an
-	 * {@link XMLElement.Interpreter} or {@link ElementParser} to make this
-	 * call, as the tokens are typically replaced by the TemplateWriter itself.)
+	 * Given a string containing tokens returned by {@link #tokenForStringExpression}, {@link #tokenForSafeHtmlExpression} or {@link #declareDomField}, return a string with those
+	 * tokens replaced by the appropriate expressions. (It is not normally necessary for an {@link XMLElement.Interpreter} or {@link ElementParser} to make this call, as the tokens
+	 * are typically replaced by the TemplateWriter itself.)
 	 */
 	public String detokenate(String betokened) {
 		return tokenator.detokenate(betokened);
 	}
 
 	/**
-	 * Post an error message and halt processing. This method always throws an
-	 * {@link UnableToCompleteException}
+	 * Post an error message and halt processing. This method always throws an {@link UnableToCompleteException}
 	 */
 	public void die(String message) throws UnableToCompleteException {
 		logger.die(message);
 	}
 
 	/**
-	 * Post an error message and halt processing. This method always throws an
-	 * {@link UnableToCompleteException}
+	 * Post an error message and halt processing. This method always throws an {@link UnableToCompleteException}
 	 */
-	public void die(String message, Object... params)
-			throws UnableToCompleteException {
+	public void die(String message, Object... params) throws UnableToCompleteException {
 		logger.die(message, params);
 	}
 
 	/**
-	 * Post an error message about a specific XMLElement and halt processing.
-	 * This method always throws an {@link UnableToCompleteException}
+	 * Post an error message about a specific XMLElement and halt processing. This method always throws an {@link UnableToCompleteException}
 	 */
-	public void die(XMLElement context, String message, Object... params)
-			throws UnableToCompleteException {
+	public void die(XMLElement context, String message, Object... params) throws UnableToCompleteException {
 		logger.die(context, message, params);
 	}
 
 	/**
-	 * End the current attachable section. This will detach the element if it
-	 * was ever attached and execute any detach statements.
+	 * End the current attachable section. This will detach the element if it was ever attached and execute any detach statements.
 	 * 
 	 * @see #beginAttachedSection(String)
 	 */
@@ -737,18 +646,15 @@ public class UiBinderWriter implements Statements {
 		String attachSectionElement = attachSectionElements.getFirst();
 		if (!attachedVars.containsKey(attachSectionElement)) {
 			String attachedVar = "attachRecord" + nextAttachVar;
-			addInitStatement(
-					"UiBinderUtil.TempAttachment %s = UiBinderUtil.attachToDom(%s);",
-					attachedVar, attachSectionElement);
+			addInitStatement("UiBinderUtil.TempAttachment %s = UiBinderUtil.attachToDom(%s);", attachedVar, attachSectionElement);
 			attachedVars.put(attachSectionElement, attachedVar);
 			nextAttachVar++;
 		}
 	}
 
 	/**
-	 * Ensure that the specified field is attached to the DOM. The field must
-	 * hold an object that responds to Element getElement(). Convenience wrapper
-	 * for {@link #ensureAttached}<code>(field + ".getElement()")</code>.
+	 * Ensure that the specified field is attached to the DOM. The field must hold an object that responds to Element getElement(). Convenience wrapper for {@link #ensureAttached}
+	 * <code>(field + ".getElement()")</code>.
 	 * 
 	 * @see #beginAttachedSection(String)
 	 */
@@ -757,16 +663,14 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Finds the JClassType that corresponds to this XMLElement, which must be a
-	 * Widget or an Element.
+	 * Finds the JClassType that corresponds to this XMLElement, which must be a Widget or an Element.
 	 * 
 	 * @throws UnableToCompleteException
 	 *             If no such widget class exists
 	 * @throws RuntimeException
 	 *             if asked to handle a non-widget, non-DOM element
 	 */
-	public JClassType findFieldType(XMLElement elem)
-			throws UnableToCompleteException {
+	public JClassType findFieldType(XMLElement elem) throws UnableToCompleteException {
 		String tagName = elem.getLocalName();
 
 		if (!isImportedElement(elem)) {
@@ -801,19 +705,16 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Generates the code to set a property value (assumes that 'value' is a
-	 * valid Java expression).
+	 * Generates the code to set a property value (assumes that 'value' is a valid Java expression).
 	 */
 	public void genPropertySet(String fieldName, String propName, String value) {
-		addStatement("%1$s.set%2$s(%3$s);", fieldName,
-				capitalizePropName(propName), value);
+		addStatement("%1$s.set%2$s(%3$s);", fieldName, capitalizePropName(propName), value);
 	}
 
 	/**
 	 * Generates the code to set a string property.
 	 */
-	public void genStringPropertySet(String fieldName, String propName,
-			String value) {
+	public void genStringPropertySet(String fieldName, String propName, String value) {
 		genPropertySet(fieldName, propName, "\"" + value + "\"");
 	}
 
@@ -840,8 +741,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Returns the logger, at least until we get get it handed off to parsers
-	 * via constructor args.
+	 * Returns the logger, at least until we get get it handed off to parsers via constructor args.
 	 */
 	public MortalLogger getLogger() {
 		return logger;
@@ -874,15 +774,12 @@ public class UiBinderWriter implements Statements {
 		return uri != null && binderUri.equals(uri);
 	}
 
-	public boolean isElementAssignableTo(XMLElement elem,
-			Class<?> possibleSuperclass) throws UnableToCompleteException {
-		JClassType classType = oracle.findType(possibleSuperclass
-				.getCanonicalName());
+	public boolean isElementAssignableTo(XMLElement elem, Class<?> possibleSuperclass) throws UnableToCompleteException {
+		JClassType classType = oracle.findType(possibleSuperclass.getCanonicalName());
 		return isElementAssignableTo(elem, classType);
 	}
 
-	public boolean isElementAssignableTo(XMLElement elem,
-			JClassType possibleSupertype) throws UnableToCompleteException {
+	public boolean isElementAssignableTo(XMLElement elem, JClassType possibleSupertype) throws UnableToCompleteException {
 		/*
 		 * Things like <W extends IsWidget & IsPlaid>
 		 */
@@ -898,10 +795,8 @@ public class UiBinderWriter implements Statements {
 		}
 
 		/*
-		 * Binder fields are always declared raw, so we're cheating if the user
-		 * is playing with parameterized types. We're happy enough if the raw
-		 * types match, and rely on them to make sure the specific types really
-		 * do work.
+		 * Binder fields are always declared raw, so we're cheating if the user is playing with parameterized types. We're happy enough if the raw types match, and rely on them to
+		 * make sure the specific types really do work.
 		 */
 		JParameterizedType parameterized = possibleSupertype.isParameterized();
 		if (parameterized != null) {
@@ -929,12 +824,10 @@ public class UiBinderWriter implements Statements {
 			return false;
 		}
 
-		return lazyDomElementClass.isAssignableFrom(ownerField.getType()
-				.getRawType());
+		return lazyDomElementClass.isAssignableFrom(ownerField.getType().getRawType());
 	}
 
-	public boolean isRenderableElement(XMLElement elem)
-			throws UnableToCompleteException {
+	public boolean isRenderableElement(XMLElement elem) throws UnableToCompleteException {
 		return findFieldType(elem).isAssignableTo(isRenderableClassType);
 	}
 
@@ -942,27 +835,23 @@ public class UiBinderWriter implements Statements {
 		return isRenderer;
 	}
 
-	public boolean isWidgetElement(XMLElement elem)
-			throws UnableToCompleteException {
+	public boolean isWidgetElement(XMLElement elem) throws UnableToCompleteException {
 		return isElementAssignableTo(elem, IsWidget.class);
 	}
 
-	public boolean isFamousNode(XMLElement elem)
-			throws UnableToCompleteException {
+	public boolean isFamousNode(XMLElement elem) throws UnableToCompleteException {
 		return isElementAssignableTo(elem, FamoUsNode.class);
 	}
 
 	/**
-	 * Parses the object associated with the specified element, and returns the
-	 * field writer that will hold it. The element is likely to make recursive
-	 * calls back to this method to have its children parsed.
+	 * Parses the object associated with the specified element, and returns the field writer that will hold it. The element is likely to make recursive calls back to this method to
+	 * have its children parsed.
 	 * 
 	 * @param elem
 	 *            the xml element to be parsed
 	 * @return the field holder just created
 	 */
-	public FieldWriter parseElementToField(XMLElement elem)
-			throws UnableToCompleteException {
+	public FieldWriter parseElementToField(XMLElement elem) throws UnableToCompleteException {
 
 		if (elementParsers.isEmpty()) {
 			registerParsers();
@@ -975,12 +864,9 @@ public class UiBinderWriter implements Statements {
 		FieldWriter field = declareField(elem, type.getQualifiedSourceName());
 
 		/*
-		 * Push the field that will hold this widget on top of the
-		 * parsedFieldStack to ensure that fields registered by its parsers will
-		 * be noted as dependencies of the new widget. (See registerField.) Also
-		 * push the element being parsed, so that the fieldManager can hold that
-		 * info for later error reporting when field reference left hand sides
-		 * are validated.
+		 * Push the field that will hold this widget on top of the parsedFieldStack to ensure that fields registered by its parsers will be noted as dependencies of the new widget.
+		 * (See registerField.) Also push the element being parsed, so that the fieldManager can hold that info for later error reporting when field reference left hand sides are
+		 * validated.
 		 */
 		fieldManager.push(elem, field);
 
@@ -994,8 +880,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Gives the writer the initializer to use for this field instead of the
-	 * default GWT.create call.
+	 * Gives the writer the initializer to use for this field instead of the default GWT.create call.
 	 * 
 	 * @throws IllegalStateException
 	 *             if an initializer has already been set
@@ -1005,8 +890,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Instructs the writer to initialize the field with a specific constructor
-	 * invocation, instead of the default GWT.create call.
+	 * Instructs the writer to initialize the field with a specific constructor invocation, instead of the default GWT.create call.
 	 * 
 	 * @param fieldName
 	 *            the field to initialize
@@ -1015,24 +899,15 @@ public class UiBinderWriter implements Statements {
 	 * @param args
 	 *            arguments to the constructor call
 	 */
-	public void setFieldInitializerAsConstructor(String fieldName,
-			String... args) {
-		JClassType assignableType = fieldManager.lookup(fieldName)
-				.getAssignableType();
-		setFieldInitializer(
-				fieldName,
-				formatCode("new %s(%s)",
-						assignableType.getQualifiedSourceName(),
-						asCommaSeparatedList(args)));
+	public void setFieldInitializerAsConstructor(String fieldName, String... args) {
+		JClassType assignableType = fieldManager.lookup(fieldName).getAssignableType();
+		setFieldInitializer(fieldName, formatCode("new %s(%s)", assignableType.getQualifiedSourceName(), asCommaSeparatedList(args)));
 	}
 
 	/**
-	 * Like {@link #tokenForStringExpression}, but used for runtime expressions
-	 * that we trust to be safe to interpret at runtime as HTML without
-	 * escaping, like translated messages with simple formatting. Wrapped in a
-	 * call to
-	 * {@link com.google.gwt.safehtml.shared.SafeHtmlUtils#fromSafeConstant} to
-	 * keep the expression from being escaped by the SafeHtml template.
+	 * Like {@link #tokenForStringExpression}, but used for runtime expressions that we trust to be safe to interpret at runtime as HTML without escaping, like translated messages
+	 * with simple formatting. Wrapped in a call to {@link com.google.gwt.safehtml.shared.SafeHtmlUtils#fromSafeConstant} to keep the expression from being escaped by the SafeHtml
+	 * template.
 	 * 
 	 * @param expression
 	 *            must resolve to trusted HTML string
@@ -1048,14 +923,12 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Like {@link #tokenForStringExpression}, but used for runtime
-	 * {@link com.google.gwt.safehtml.shared.SafeHtml SafeHtml} instances.
+	 * Like {@link #tokenForStringExpression}, but used for runtime {@link com.google.gwt.safehtml.shared.SafeHtml SafeHtml} instances.
 	 * 
 	 * @param expression
 	 *            must resolve to SafeHtml object
 	 */
-	public String tokenForSafeHtmlExpression(XMLElement source,
-			String expression) {
+	public String tokenForSafeHtmlExpression(XMLElement source, String expression) {
 		if (!useSafeHtmlTemplates) {
 			return tokenForStringExpression(source, expression + ".asString()");
 		}
@@ -1065,8 +938,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Like {@link #tokenForStringExpression}, but used for runtime
-	 * {@link com.google.gwt.safehtml.shared.SafeUri SafeUri} instances.
+	 * Like {@link #tokenForStringExpression}, but used for runtime {@link com.google.gwt.safehtml.shared.SafeUri SafeUri} instances.
 	 * 
 	 * @param expression
 	 *            must resolve to SafeUri object
@@ -1081,12 +953,9 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Returns a string token that can be used in place the given expression
-	 * inside any string literals. Before the generated code is written, the
-	 * expression will be stitched back into the generated code in place of the
-	 * token, surrounded by plus signs. This is useful in strings to be handed
-	 * to setInnerHTML() and setText() calls, to allow a unique dom id attribute
-	 * or other runtime expression in the string.
+	 * Returns a string token that can be used in place the given expression inside any string literals. Before the generated code is written, the expression will be stitched back
+	 * into the generated code in place of the token, surrounded by plus signs. This is useful in strings to be handed to setInnerHTML() and setText() calls, to allow a unique dom
+	 * id attribute or other runtime expression in the string.
 	 * 
 	 * @param expression
 	 *            must resolve to String
@@ -1128,20 +997,17 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Entry point for the code generation logic. It generates the
-	 * implementation's superstructure, and parses the root widget (leading to
-	 * all of its children being parsed as well).
+	 * Entry point for the code generation logic. It generates the implementation's superstructure, and parses the root widget (leading to all of its children being parsed as
+	 * well).
 	 * 
 	 * @param doc
 	 *            TODO
 	 */
-	void parseDocument(Document doc, PrintWriter printWriter)
-			throws UnableToCompleteException {
+	void parseDocument(Document doc, PrintWriter printWriter) throws UnableToCompleteException {
 		Element documentElement = doc.getDocumentElement();
 		gwtPrefix = documentElement.lookupPrefix(binderUri);
 
-		XMLElement elem = new XMLElementProviderImpl(attributeParsers, oracle,
-				logger, designTime).get(documentElement);
+		XMLElement elem = new XMLElementProviderImpl(attributeParsers, oracle, logger, designTime).get(documentElement);
 		this.rendered = tokenator.detokenate(parseDocumentElement(elem));
 		printWriter.print(rendered);
 	}
@@ -1152,26 +1018,21 @@ public class UiBinderWriter implements Statements {
 
 	private void addWidgetParser(String className) {
 		String gwtClass = "com.google.gwt.user.client.ui." + className;
-		String parser = "com.google.gwt.uibinder.elementparsers." + className
-				+ "Parser";
+		String parser = "com.google.gwt.uibinder.elementparsers." + className + "Parser";
 		addElementParser(gwtClass, parser);
 	}
 
 	private void addAitParser(String library, String className) {
-		String gwtClass = "com.ait.toolkit." + library + ".client.ui."
-				+ className;
-		String parser = "com.google.gwt.uibinder.elementparsers.ait." + library
-				+ "." + className + "Parser";
+		String gwtClass = "com.ait.toolkit." + library + ".client.ui." + className;
+		String parser = "com.google.gwt.uibinder.elementparsers.ait." + library + "." + className + "Parser";
 		addElementParser(gwtClass, parser);
 	}
 
 	/**
-	 * Declares a field of the given type name, returning the name of the
-	 * declared field. If the element has a field or id attribute, use its
-	 * value. Otherwise, create and return a new, private field name for it.
+	 * Declares a field of the given type name, returning the name of the declared field. If the element has a field or id attribute, use its value. Otherwise, create and return a
+	 * new, private field name for it.
 	 */
-	private FieldWriter declareField(XMLElement source, String typeName)
-			throws UnableToCompleteException {
+	private FieldWriter declareField(XMLElement source, String typeName) throws UnableToCompleteException {
 		JClassType type = oracle.findType(typeName);
 		if (type == null) {
 			die(source, "Unknown type %s", typeName);
@@ -1189,33 +1050,26 @@ public class UiBinderWriter implements Statements {
 		return fieldManager.registerField(type, fieldName);
 	}
 
-	private void dieGettingEventTypeName(JMethod jMethod, Exception e)
-			throws UnableToCompleteException {
-		die("Could not obtain DomEvent.Type object for first parameter of %s (%s)",
-				formatMethodError(jMethod), e.getMessage());
+	private void dieGettingEventTypeName(JMethod jMethod, Exception e) throws UnableToCompleteException {
+		die("Could not obtain DomEvent.Type object for first parameter of %s (%s)", formatMethodError(jMethod), e.getMessage());
 	}
 
 	/**
-	 * Ensures that all of the internal data structures are cleaned up correctly
-	 * at the end of parsing the document.
+	 * Ensures that all of the internal data structures are cleaned up correctly at the end of parsing the document.
 	 * 
 	 * @throws IllegalStateException
 	 */
 	private void ensureAttachmentCleanedUp() {
 		if (!attachSectionElements.isEmpty()) {
-			throw new IllegalStateException("Attachments not cleaned up: "
-					+ attachSectionElements);
+			throw new IllegalStateException("Attachments not cleaned up: " + attachSectionElements);
 		}
 		if (!detachStatementsStack.isEmpty()) {
-			throw new IllegalStateException("Detach not cleaned up: "
-					+ detachStatementsStack);
+			throw new IllegalStateException("Detach not cleaned up: " + detachStatementsStack);
 		}
 	}
 
 	/**
-	 * Add call to
-	 * {@code com.google.gwt.resources.client.CssResource#ensureInjected()} on
-	 * each CSS resource field.
+	 * Add call to {@code com.google.gwt.resources.client.CssResource#ensureInjected()} on each CSS resource field.
 	 */
 	private void ensureInjectedCssFields() {
 		for (ImplicitCssResource css : bundleClass.getCssMethods()) {
@@ -1226,8 +1080,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Evaluate whether all @UiField attributes are also defined in the
-	 * template. Dies if not.
+	 * Evaluate whether all @UiField attributes are also defined in the template. Dies if not.
 	 */
 	private void evaluateUiFields() throws UnableToCompleteException {
 		if (designTime.isDesignTime()) {
@@ -1238,10 +1091,7 @@ public class UiBinderWriter implements Statements {
 			FieldWriter fieldWriter = fieldManager.lookup(fieldName);
 
 			if (fieldWriter == null) {
-				die("Template %s has no %s attribute for %s.%s#%s",
-						templatePath, getUiFieldAttributeName(), uiOwnerType
-								.getPackage().getName(), uiOwnerType.getName(),
-						fieldName);
+				die("Template %s has no %s attribute for %s.%s#%s", templatePath, getUiFieldAttributeName(), uiOwnerType.getPackage().getName(), uiOwnerType.getName(), fieldName);
 			}
 		}
 	}
@@ -1250,8 +1100,7 @@ public class UiBinderWriter implements Statements {
 	 * Given a DOM tag name, return the corresponding JSO subclass.
 	 */
 	private JClassType findDomElementTypeForTag(String tag) {
-		JClassType elementClass = oracle
-				.findType("com.google.gwt.dom.client.Element");
+		JClassType elementClass = oracle.findType("com.google.gwt.dom.client.Element");
 		JClassType[] types = elementClass.getSubtypes();
 		for (JClassType type : types) {
 			TagName annotation = type.getAnnotation(TagName.class);
@@ -1269,11 +1118,9 @@ public class UiBinderWriter implements Statements {
 	/**
 	 * Calls {@code getType().getName()} on subclasses of {@code DomEvent}.
 	 */
-	private String findEventTypeName(JMethod jMethod)
-			throws UnableToCompleteException {
+	private String findEventTypeName(JMethod jMethod) throws UnableToCompleteException {
 		// Get the event class name (i.e. DashboardItemClickEvent)
-		String eventTypeName = jMethod.getParameterTypes()[0]
-				.getQualifiedSourceName();
+		String eventTypeName = jMethod.getParameterTypes()[0].getQualifiedSourceName();
 
 		Class<?> domType;
 
@@ -1281,15 +1128,13 @@ public class UiBinderWriter implements Statements {
 		try {
 			domType = Class.forName(eventTypeName);
 		} catch (ClassNotFoundException e) {
-			die("Could not find type %s in %s", eventTypeName,
-					formatMethodError(jMethod));
+			die("Could not find type %s in %s", eventTypeName, formatMethodError(jMethod));
 			return null;
 		}
 
 		// Reflectively obtain the type (i.e. DashboardItemClickEvent.getType())
 		try {
-			return ((Type<?>) domType.getMethod("getType", (Class[]) null)
-					.invoke(null, (Object[]) null)).getName();
+			return ((Type<?>) domType.getMethod("getType", (Class[]) null).invoke(null, (Object[]) null)).getName();
 		} catch (IllegalArgumentException e) {
 			dieGettingEventTypeName(jMethod, e);
 		} catch (SecurityException e) {
@@ -1306,8 +1151,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Use this method to format code. It forces the use of the en-US locale, so
-	 * that things like decimal format don't get mangled.
+	 * Use this method to format code. It forces the use of the en-US locale, so that things like decimal format don't get mangled.
 	 */
 	private String formatCode(String format, Object... params) {
 		String r = String.format(Locale.US, format, params);
@@ -1315,28 +1159,22 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Inspects this element for a gwt:field attribute. If one is found, the
-	 * attribute is consumed and its value returned.
+	 * Inspects this element for a gwt:field attribute. If one is found, the attribute is consumed and its value returned.
 	 * 
-	 * @return The field name declared by an element, or null if none is
-	 *         declared
+	 * @return The field name declared by an element, or null if none is declared
 	 */
-	private String getFieldName(XMLElement elem)
-			throws UnableToCompleteException {
+	private String getFieldName(XMLElement elem) throws UnableToCompleteException {
 		String fieldName = null;
 		boolean hasOldSchoolId = false;
 		if (elem.hasAttribute("id") && isWidgetElement(elem)) {
 			hasOldSchoolId = true;
 			// If an id is specified on the element, use that.
 			fieldName = elem.consumeRawAttribute("id");
-			warn(elem, "Deprecated use of id=\"%1$s\" for field name. "
-					+ "Please switch to gwt:field=\"%1$s\" instead. "
-					+ "This will soon be a compile error!", fieldName);
+			warn(elem, "Deprecated use of id=\"%1$s\" for field name. " + "Please switch to gwt:field=\"%1$s\" instead. " + "This will soon be a compile error!", fieldName);
 		}
 		if (elem.hasAttribute(getUiFieldAttributeName())) {
 			if (hasOldSchoolId) {
-				die(elem,
-						"Cannot declare both id and field on the same element");
+				die(elem, "Cannot declare both id and field on the same element");
 			}
 			fieldName = elem.consumeRawAttribute(getUiFieldAttributeName());
 		}
@@ -1353,32 +1191,27 @@ public class UiBinderWriter implements Statements {
 
 		// And instantiate it.
 		try {
-			return Class.forName(parserClassName).asSubclass(
-					ElementParser.class);
+			return Class.forName(parserClassName).asSubclass(ElementParser.class);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Unable to instantiate parser", e);
 		} catch (ClassCastException e) {
-			throw new RuntimeException(parserClassName
-					+ " must extend ElementParser");
+			throw new RuntimeException(parserClassName + " must extend ElementParser");
 		}
 	}
 
 	/**
 	 * Find a set of element parsers for the given ui type.
 	 * 
-	 * The list of parsers will be returned in order from most- to
-	 * least-specific.
+	 * The list of parsers will be returned in order from most- to least-specific.
 	 */
 	private Iterable<ElementParser> getParsersForClass(JClassType type) {
 
 		List<ElementParser> parsers = new ArrayList<ElementParser>();
 
 		/*
-		 * Let this non-widget parser go first (it finds <m:attribute/>
-		 * elements). Any other such should land here too.
+		 * Let this non-widget parser go first (it finds <m:attribute/> elements). Any other such should land here too.
 		 * 
-		 * TODO(rjrjr) Need a scheme to associate these with a namespace uri or
-		 * something?
+		 * TODO(rjrjr) Need a scheme to associate these with a namespace uri or something?
 		 */
 		parsers.add(new AttributeMessageParser());
 		parsers.add(new UiChildParser(uiBinderCtx));
@@ -1391,11 +1224,9 @@ public class UiBinderWriter implements Statements {
 					parsers.add(parser);
 				}
 			} catch (InstantiationException e) {
-				throw new RuntimeException("Unable to instantiate "
-						+ curType.getName(), e);
+				throw new RuntimeException("Unable to instantiate " + curType.getName(), e);
 			} catch (IllegalAccessException e) {
-				throw new RuntimeException("Unable to instantiate "
-						+ curType.getName(), e);
+				throw new RuntimeException("Unable to instantiate " + curType.getName(), e);
 			}
 		}
 
@@ -1406,41 +1237,30 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Writes a field setter if the field is not provided and the field class is
-	 * compatible with its respective template field.
+	 * Writes a field setter if the field is not provided and the field class is compatible with its respective template field.
 	 */
-	private void maybeWriteFieldSetter(IndentedWriter niceWriter,
-			OwnerField ownerField, JClassType templateClass,
-			String templateField) throws UnableToCompleteException {
+	private void maybeWriteFieldSetter(IndentedWriter niceWriter, OwnerField ownerField, JClassType templateClass, String templateField) throws UnableToCompleteException {
 		JClassType fieldType = ownerField.getType().getRawType();
 
 		if (!ownerField.isProvided()) {
 			/*
-			 * Normally check that the type the template created can be slammed
-			 * into the @UiField annotated field in the owning class
+			 * Normally check that the type the template created can be slammed into the @UiField annotated field in the owning class
 			 */
 			if (!templateClass.isAssignableTo(fieldType)) {
-				die("In @UiField %s, template field and owner field types don't match: %s is not assignable to %s",
-						ownerField.getName(),
-						templateClass.getQualifiedSourceName(),
+				die("In @UiField %s, template field and owner field types don't match: %s is not assignable to %s", ownerField.getName(), templateClass.getQualifiedSourceName(),
 						fieldType.getQualifiedSourceName());
 			}
 			/*
 			 * And initialize the field
 			 */
-			niceWriter.write("owner.%1$s = %2$s;", ownerField.getName(),
-					templateField);
+			niceWriter.write("owner.%1$s = %2$s;", ownerField.getName(), templateField);
 		} else {
 			/*
-			 * But with @UiField(provided=true) the user builds it, so reverse
-			 * the direction of the assignability check and do no init.
+			 * But with @UiField(provided=true) the user builds it, so reverse the direction of the assignability check and do no init.
 			 */
 			if (!fieldType.isAssignableTo(templateClass)) {
-				die("In UiField(provided = true) %s, template field and field types don't match: "
-						+ "@UiField(provided=true)%s is not assignable to %s",
-						ownerField.getName(),
-						fieldType.getQualifiedSourceName(),
-						templateClass.getQualifiedSourceName());
+				die("In UiField(provided = true) %s, template field and field types don't match: " + "@UiField(provided=true)%s is not assignable to %s", ownerField.getName(),
+						fieldType.getQualifiedSourceName(), templateClass.getQualifiedSourceName());
 			}
 		}
 	}
@@ -1460,27 +1280,20 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Parse the document element and return the source of the Java class that
-	 * will implement its UiBinder.
+	 * Parse the document element and return the source of the Java class that will implement its UiBinder.
 	 */
-	private String parseDocumentElement(XMLElement elem)
-			throws UnableToCompleteException {
-		fieldManager.registerFieldOfGeneratedType(
-				oracle.findType(ClientBundle.class.getName()),
-				bundleClass.getPackageName(), bundleClass.getClassName(),
+	private String parseDocumentElement(XMLElement elem) throws UnableToCompleteException {
+		fieldManager.registerFieldOfGeneratedType(oracle.findType(ClientBundle.class.getName()), bundleClass.getPackageName(), bundleClass.getClassName(),
 				bundleClass.getFieldName());
 
 		// Allow GWT.create() to init the field, the default behavior
 
-		FieldWriter rootField = new UiBinderParser(this, messages,
-				fieldManager, oracle, bundleClass, binderUri, uiBinderCtx)
-				.parse(elem);
+		FieldWriter rootField = new UiBinderParser(this, messages, fieldManager, oracle, bundleClass, binderUri, uiBinderCtx).parse(elem);
 
 		fieldManager.validate();
 
 		StringWriter stringWriter = new StringWriter();
-		IndentedWriter niceWriter = new IndentedWriter(new PrintWriter(
-				stringWriter));
+		IndentedWriter niceWriter = new IndentedWriter(new PrintWriter(stringWriter));
 
 		if (isRenderer) {
 			ensureInjectedCssFields();
@@ -1501,8 +1314,7 @@ public class UiBinderWriter implements Statements {
 	 * @throws UnableToCompleteException
 	 *             on bad package name
 	 */
-	private JPackage parseNamespacePackage(String ns)
-			throws UnableToCompleteException {
+	private JPackage parseNamespacePackage(String ns) throws UnableToCompleteException {
 		if (ns.startsWith(PACKAGE_URI_SCHEME)) {
 			String pkgName = ns.substring(PACKAGE_URI_SCHEME.length());
 
@@ -1521,8 +1333,7 @@ public class UiBinderWriter implements Statements {
 		// TODO(rjrjr): Allow third-party parsers to register themselves
 		// automagically
 
-		addElementParser("com.google.gwt.dom.client.Element",
-				"com.google.gwt.uibinder.elementparsers.DomElementParser");
+		addElementParser("com.google.gwt.dom.client.Element", "com.google.gwt.uibinder.elementparsers.DomElementParser");
 
 		// Register widget parsers.
 		addWidgetParser("UIObject");
@@ -1559,19 +1370,15 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Validates each {@code eventMethod} (e.g.
-	 * {@code onBrowserEvent(HandlerType o, NativeEvent e,
+	 * Validates each {@code eventMethod} (e.g. {@code onBrowserEvent(HandlerType o, NativeEvent e,
 	 * Element parent, A a, B b, ...)}).
 	 * <ul>
 	 * <li>The second parameter type is {@code NativeEvent}
 	 * <li>The third parameter type is {@code Element}
-	 * <li>All the handler methods in the type of the first parameter (any
-	 * methods annotated with {@code @UiHandler}) have a signature compatible
-	 * with the {@code eventMethod}
+	 * <li>All the handler methods in the type of the first parameter (any methods annotated with {@code @UiHandler}) have a signature compatible with the {@code eventMethod}
 	 * </ul>
 	 */
-	private void validateEventMethod(JMethod eventMethod)
-			throws UnableToCompleteException {
+	private void validateEventMethod(JMethod eventMethod) throws UnableToCompleteException {
 		JParameter[] parameters = eventMethod.getParameters();
 		if (parameters.length < 3) {
 			die("Too few parameters in %s", formatMethodError(eventMethod));
@@ -1580,21 +1387,17 @@ public class UiBinderWriter implements Statements {
 		String nativeEventName = NativeEvent.class.getCanonicalName();
 		JClassType nativeEventType = oracle.findType(nativeEventName);
 		if (!nativeEventType.equals(parameters[1].getType())) {
-			die("Second parameter must be of type %s in %s", nativeEventName,
-					formatMethodError(eventMethod));
+			die("Second parameter must be of type %s in %s", nativeEventName, formatMethodError(eventMethod));
 		}
 
-		String elementName = com.google.gwt.dom.client.Element.class
-				.getCanonicalName();
+		String elementName = com.google.gwt.dom.client.Element.class.getCanonicalName();
 		JClassType elementType = oracle.findType(elementName);
 		if (!elementType.equals(parameters[2].getType())) {
-			die("Third parameter must be of type %s in %s", elementName,
-					formatMethodError(eventMethod));
+			die("Third parameter must be of type %s in %s", elementName, formatMethodError(eventMethod));
 		}
 
 		if (parameters[0].getType().isClassOrInterface() == null) {
-			die("First parameter must be a class or interface in %s",
-					formatMethodError(eventMethod));
+			die("First parameter must be a class or interface in %s", formatMethodError(eventMethod));
 		}
 
 		JClassType eventReceiver = parameters[0].getType().isClassOrInterface();
@@ -1603,35 +1406,25 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Validates the signature of all methods annotated with {@code @UiHandler}
-	 * in the {@code eventReceiver} type. All event handlers must have the same
-	 * signature where:
+	 * Validates the signature of all methods annotated with {@code @UiHandler} in the {@code eventReceiver} type. All event handlers must have the same signature where:
 	 * <ul>
 	 * <li>The annotation must list valid {@code ui:field}s
-	 * <li>The first parameter must be assignable to
-	 * {@link com.google.gwt.event.dom.client.DomEvent DomEvent}
-	 * <li>If present, the second parameter must be of type
-	 * {@link com.google.gwt.dom.client.Element Element}
-	 * <li>For all other parameters in position {@code n} must be of the same
-	 * type as {@code parameters[n + 1]}
+	 * <li>The first parameter must be assignable to {@link com.google.gwt.event.dom.client.DomEvent DomEvent}
+	 * <li>If present, the second parameter must be of type {@link com.google.gwt.dom.client.Element Element}
+	 * <li>For all other parameters in position {@code n} must be of the same type as {@code parameters[n + 1]}
 	 * </ul>
 	 */
-	private void validateEventReceiver(JParameter[] onBrowserEventParameters,
-			JClassType eventReceiver, JMethod sourceMethod)
-			throws UnableToCompleteException {
+	private void validateEventReceiver(JParameter[] onBrowserEventParameters, JClassType eventReceiver, JMethod sourceMethod) throws UnableToCompleteException {
 
 		// Pre-compute the expected parameter types (after the first one, that
 		// is)
 		JType[] onBrowserEventParamTypes = new JType[onBrowserEventParameters.length - 2];
 
 		// If present, second parameter must be an Element
-		onBrowserEventParamTypes[0] = oracle
-				.findType(com.google.gwt.dom.client.Element.class
-						.getCanonicalName());
+		onBrowserEventParamTypes[0] = oracle.findType(com.google.gwt.dom.client.Element.class.getCanonicalName());
 		// And the rest must be the same type
 		for (int i = 3; i < onBrowserEventParameters.length; i++) {
-			onBrowserEventParamTypes[i - 2] = onBrowserEventParameters[i]
-					.getType();
+			onBrowserEventParamTypes[i - 2] = onBrowserEventParameters[i].getType();
 		}
 
 		for (JMethod jMethod : eventReceiver.getInheritableMethods()) {
@@ -1644,27 +1437,21 @@ public class UiBinderWriter implements Statements {
 			// Are the fields in @UiHandler known?
 			String[] fields = annotation.value();
 			if (fields == null) {
-				die("@UiHandler returns null from its value in %s",
-						formatMethodError(jMethod));
+				die("@UiHandler returns null from its value in %s", formatMethodError(jMethod));
 			}
 			for (String fieldName : fields) {
 				FieldWriter field = fieldManager.lookup(fieldName);
 				if (field == null) {
-					die("\"%s\" is not a known field name as listed in the @UiHandler annotation in %s",
-							fieldName, formatMethodError(jMethod));
+					die("\"%s\" is not a known field name as listed in the @UiHandler annotation in %s", fieldName, formatMethodError(jMethod));
 				}
 			}
 
 			// First parameter
 			JParameter[] eventHandlerParameters = jMethod.getParameters();
-			JClassType domEventType = oracle.findType(DomEvent.class
-					.getCanonicalName());
-			JClassType firstParamType = eventHandlerParameters[0].getType()
-					.isClassOrInterface();
-			if (firstParamType == null
-					|| !firstParamType.isAssignableTo(domEventType)) {
-				die("First parameter must be assignable to com.google.gwt.dom.client.DomEvent in %s",
-						formatMethodError(jMethod));
+			JClassType domEventType = oracle.findType(DomEvent.class.getCanonicalName());
+			JClassType firstParamType = eventHandlerParameters[0].getType().isClassOrInterface();
+			if (firstParamType == null || !firstParamType.isAssignableTo(domEventType)) {
+				die("First parameter must be assignable to com.google.gwt.dom.client.DomEvent in %s", formatMethodError(jMethod));
 			}
 
 			// All others
@@ -1672,82 +1459,52 @@ public class UiBinderWriter implements Statements {
 				die("Too many parameters in %s", formatMethodError(jMethod));
 			}
 			for (int i = 1; i < eventHandlerParameters.length; i++) {
-				if (!eventHandlerParameters[i].getType().equals(
-						onBrowserEventParamTypes[i - 1])) {
-					die("Parameter %s in %s is not of the same type as parameter %s in %s",
-							eventHandlerParameters[i].getName(),
-							formatMethodError(jMethod),
-							onBrowserEventParameters[i + 1].getName(),
-							formatMethodError(sourceMethod));
+				if (!eventHandlerParameters[i].getType().equals(onBrowserEventParamTypes[i - 1])) {
+					die("Parameter %s in %s is not of the same type as parameter %s in %s", eventHandlerParameters[i].getName(), formatMethodError(jMethod),
+							onBrowserEventParameters[i + 1].getName(), formatMethodError(sourceMethod));
 				}
 			}
 		}
 	}
 
 	/**
-	 * Scan the base class for the getter methods. Assumes getters begin with
-	 * "get" and validates that each corresponds to a field declared with
-	 * {@code ui:field}. If the getter return type is assignable to
-	 * {@code Element}, the getter must have a single parameter and the
-	 * parameter must be assignable to {@code Element}. If the getter return
-	 * type is assignable to {@code com.google.gwt.resources.client.CssResource}
-	 * , the getter must have no parameters.
+	 * Scan the base class for the getter methods. Assumes getters begin with "get" and validates that each corresponds to a field declared with {@code ui:field}. If the getter
+	 * return type is assignable to {@code Element}, the getter must have a single parameter and the parameter must be assignable to {@code Element}. If the getter return type is
+	 * assignable to {@code com.google.gwt.resources.client.CssResource} , the getter must have no parameters.
 	 */
-	private void validateRendererGetters(JClassType owner)
-			throws UnableToCompleteException {
+	private void validateRendererGetters(JClassType owner) throws UnableToCompleteException {
 		for (JMethod jMethod : owner.getInheritableMethods()) {
 			String getterName = jMethod.getName();
 			if (getterName.startsWith("get")) {
 				String fieldName = getterToFieldName(getterName);
 				FieldWriter field = fieldManager.lookup(fieldName);
-				if (field == null
-						|| (!FieldWriterType.DEFAULT.equals(field
-								.getFieldType()) && !FieldWriterType.GENERATED_CSS
-								.equals(field.getFieldType()))) {
-					die("%s does not match a \"ui:field='%s'\" declaration in %s, "
-							+ "or '%s' refers to something other than a ui:style"
-							+ " or an HTML element in the template",
-							getterName, fieldName,
-							owner.getQualifiedSourceName(), fieldName);
+				if (field == null || (!FieldWriterType.DEFAULT.equals(field.getFieldType()) && !FieldWriterType.GENERATED_CSS.equals(field.getFieldType()))) {
+					die("%s does not match a \"ui:field='%s'\" declaration in %s, " + "or '%s' refers to something other than a ui:style" + " or an HTML element in the template",
+							getterName, fieldName, owner.getQualifiedSourceName(), fieldName);
 				}
-				if (FieldWriterType.DEFAULT.equals(field.getFieldType())
-						&& jMethod.getParameterTypes().length != 1) {
-					die("Field getter %s must have exactly one parameter in %s",
-							getterName, owner.getQualifiedSourceName());
-				} else if (FieldWriterType.GENERATED_CSS.equals(field
-						.getFieldType())
-						&& jMethod.getParameterTypes().length != 0) {
-					die("Style getter %s must have no parameters in %s",
-							getterName, owner.getQualifiedSourceName());
+				if (FieldWriterType.DEFAULT.equals(field.getFieldType()) && jMethod.getParameterTypes().length != 1) {
+					die("Field getter %s must have exactly one parameter in %s", getterName, owner.getQualifiedSourceName());
+				} else if (FieldWriterType.GENERATED_CSS.equals(field.getFieldType()) && jMethod.getParameterTypes().length != 0) {
+					die("Style getter %s must have no parameters in %s", getterName, owner.getQualifiedSourceName());
 				} else if (jMethod.getParameterTypes().length == 1) {
-					String elementClassName = com.google.gwt.dom.client.Element.class
-							.getCanonicalName();
+					String elementClassName = com.google.gwt.dom.client.Element.class.getCanonicalName();
 					JClassType elementType = oracle.findType(elementClassName);
-					JClassType getterParamType = jMethod.getParameterTypes()[0]
-							.getErasedType().isClassOrInterface();
+					JClassType getterParamType = jMethod.getParameterTypes()[0].getErasedType().isClassOrInterface();
 
 					if (!elementType.isAssignableFrom(getterParamType)) {
-						die("Getter %s must have exactly one parameter of type assignable to %s in %s",
-								getterName, elementClassName,
-								owner.getQualifiedSourceName());
+						die("Getter %s must have exactly one parameter of type assignable to %s in %s", getterName, elementClassName, owner.getQualifiedSourceName());
 					}
 				}
-			} else if (!getterName.equals("render")
-					&& !getterName.equals("onBrowserEvent")
-					&& !getterName.equals("isParentOrRenderer")) {
-				die("Unexpected method \"%s\" found in %s", getterName,
-						owner.getQualifiedSourceName());
+			} else if (!getterName.equals("render") && !getterName.equals("onBrowserEvent") && !getterName.equals("isParentOrRenderer")) {
+				die("Unexpected method \"%s\" found in %s", getterName, owner.getQualifiedSourceName());
 			}
 		}
 	}
 
 	/**
-	 * Scans a class to validate that it contains a single method called render,
-	 * which has a {@code void} return type, and its first parameter is of type
-	 * {@code SafeHtmlBuilder}.
+	 * Scans a class to validate that it contains a single method called render, which has a {@code void} return type, and its first parameter is of type {@code SafeHtmlBuilder}.
 	 */
-	private void validateRenderParameters(JClassType owner)
-			throws UnableToCompleteException {
+	private void validateRenderParameters(JClassType owner) throws UnableToCompleteException {
 		JMethod[] methods = owner.getInheritableMethods();
 		JMethod renderMethod = null;
 
@@ -1756,30 +1513,22 @@ public class UiBinderWriter implements Statements {
 				if (renderMethod == null) {
 					renderMethod = jMethod;
 				} else {
-					die("%s declares more than one method named render",
-							owner.getQualifiedSourceName());
+					die("%s declares more than one method named render", owner.getQualifiedSourceName());
 				}
 			}
 		}
 
-		if (renderMethod == null
-				|| renderMethod.getParameterTypes().length < 1
-				|| !renderMethod.getParameterTypes()[0].getErasedType()
-						.getQualifiedSourceName()
-						.equals(SafeHtmlBuilder.class.getCanonicalName())) {
-			die("%s does not declare a render(SafeHtmlBuilder ...) method",
-					owner.getQualifiedSourceName());
+		if (renderMethod == null || renderMethod.getParameterTypes().length < 1
+				|| !renderMethod.getParameterTypes()[0].getErasedType().getQualifiedSourceName().equals(SafeHtmlBuilder.class.getCanonicalName())) {
+			die("%s does not declare a render(SafeHtmlBuilder ...) method", owner.getQualifiedSourceName());
 		}
 		if (!JPrimitiveType.VOID.equals(renderMethod.getReturnType())) {
-			die("%s#render(SafeHtmlBuilder ...) does not return void",
-					owner.getQualifiedSourceName());
+			die("%s#render(SafeHtmlBuilder ...) does not return void", owner.getQualifiedSourceName());
 		}
 	}
 
 	/**
-	 * Write statements that parsers created via calls to {@link #addStatement}.
-	 * Such statements will assume that {@link #writeGwtFields} has already been
-	 * called.
+	 * Write statements that parsers created via calls to {@link #addStatement}. Such statements will assume that {@link #writeGwtFields} has already been called.
 	 */
 	private void writeAddedStatements(IndentedWriter niceWriter) {
 		for (String s : statements) {
@@ -1790,8 +1539,7 @@ public class UiBinderWriter implements Statements {
 	/**
 	 * Writes the UiBinder's source.
 	 */
-	private void writeBinder(IndentedWriter w, FieldWriter rootField)
-			throws UnableToCompleteException {
+	private void writeBinder(IndentedWriter w, FieldWriter rootField) throws UnableToCompleteException {
 		writePackage(w);
 
 		writeImports(w);
@@ -1806,9 +1554,7 @@ public class UiBinderWriter implements Statements {
 		w.newline();
 
 		// createAndBindUi method
-		w.write("public %s createAndBindUi(final %s owner) {",
-				uiRootType.getParameterizedQualifiedSourceName(),
-				uiOwnerType.getParameterizedQualifiedSourceName());
+		w.write("public %s createAndBindUi(final %s owner) {", uiRootType.getParameterizedQualifiedSourceName(), uiOwnerType.getParameterizedQualifiedSourceName());
 		w.indent();
 		w.newline();
 
@@ -1839,11 +1585,9 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Writes a different optimized UiBinder's source for the renderable
-	 * strategy.
+	 * Writes a different optimized UiBinder's source for the renderable strategy.
 	 */
-	private void writeBinderForRenderableStrategy(IndentedWriter w,
-			FieldWriter rootField) throws UnableToCompleteException {
+	private void writeBinderForRenderableStrategy(IndentedWriter w, FieldWriter rootField) throws UnableToCompleteException {
 		writePackage(w);
 
 		writeImports(w);
@@ -1858,9 +1602,7 @@ public class UiBinderWriter implements Statements {
 		w.newline();
 
 		// createAndBindUi method
-		w.write("public %s createAndBindUi(final %s owner) {",
-				uiRootType.getParameterizedQualifiedSourceName(),
-				uiOwnerType.getParameterizedQualifiedSourceName());
+		w.write("public %s createAndBindUi(final %s owner) {", uiRootType.getParameterizedQualifiedSourceName(), uiOwnerType.getParameterizedQualifiedSourceName());
 		w.indent();
 		w.newline();
 
@@ -1879,8 +1621,7 @@ public class UiBinderWriter implements Statements {
 		w.write("class Widgets {");
 		w.indent();
 
-		String ownerClassType = uiOwnerType
-				.getParameterizedQualifiedSourceName();
+		String ownerClassType = uiOwnerType.getParameterizedQualifiedSourceName();
 		w.write("private final %s owner;", ownerClassType);
 		w.newline();
 
@@ -1899,8 +1640,7 @@ public class UiBinderWriter implements Statements {
 
 		evaluateUiFields();
 
-		fieldManager.writeFieldDefinitions(w, getOracle(), getOwnerClass(),
-				getDesignTime());
+		fieldManager.writeFieldDefinitions(w, getOracle(), getOwnerClass(), getDesignTime());
 
 		w.outdent();
 		w.write("}");
@@ -1912,38 +1652,29 @@ public class UiBinderWriter implements Statements {
 
 	private void writeClassOpen(IndentedWriter w) {
 		if (!isRenderer) {
-			w.write("public class %s implements UiBinder<%s, %s>, %s {",
-					implClassName,
-					uiRootType.getParameterizedQualifiedSourceName(),
-					uiOwnerType.getParameterizedQualifiedSourceName(),
-					baseClass.getParameterizedQualifiedSourceName());
+			w.write("public class %s implements UiBinder<%s, %s>, %s {", implClassName, uiRootType.getParameterizedQualifiedSourceName(),
+					uiOwnerType.getParameterizedQualifiedSourceName(), baseClass.getParameterizedQualifiedSourceName());
 		} else {
-			w.write("public class %s extends %s implements %s {",
-					implClassName, AbstractUiRenderer.class.getName(),
-					baseClass.getParameterizedQualifiedSourceName());
+			w.write("public class %s extends %s implements %s {", implClassName, AbstractUiRenderer.class.getName(), baseClass.getParameterizedQualifiedSourceName());
 		}
 		w.indent();
 	}
 
 	private void writeCssInjectors(IndentedWriter w) {
 		for (ImplicitCssResource css : bundleClass.getCssMethods()) {
-			w.write("%s.%s().ensureInjected();", bundleClass.getFieldName(),
-					css.getName());
+			w.write("%s.%s().ensureInjected();", bundleClass.getFieldName(), css.getName());
 		}
 		w.newline();
 	}
 
 	/**
-	 * Write declarations for variables or fields to hold elements declared with
-	 * gwt:field in the template. For those that have not had constructor
-	 * generation suppressed, emit GWT.create() calls instantiating them (or die
-	 * if they have no default constructor).
+	 * Write declarations for variables or fields to hold elements declared with gwt:field in the template. For those that have not had constructor generation suppressed, emit
+	 * GWT.create() calls instantiating them (or die if they have no default constructor).
 	 * 
 	 * @throws UnableToCompleteException
 	 *             on constructor problem
 	 */
-	private void writeGwtFields(IndentedWriter niceWriter)
-			throws UnableToCompleteException {
+	private void writeGwtFields(IndentedWriter niceWriter) throws UnableToCompleteException {
 		// For each provided field in the owner class, initialize from the owner
 		Collection<OwnerField> ownerFields = getOwnerClass().getUiFields();
 		for (OwnerField ownerField : ownerFields) {
@@ -1955,10 +1686,8 @@ public class UiBinderWriter implements Statements {
 				if (fieldWriter != null) {
 					String initializer;
 					if (designTime.isDesignTime()) {
-						String typeName = ownerField.getType().getRawType()
-								.getQualifiedSourceName();
-						initializer = designTime.getProvidedField(typeName,
-								ownerField.getName());
+						String typeName = ownerField.getType().getRawType().getQualifiedSourceName();
+						initializer = designTime.getProvidedField(typeName, ownerField.getName());
 					} else {
 						initializer = formatCode("owner.%1$s", fieldName);
 					}
@@ -1970,8 +1699,7 @@ public class UiBinderWriter implements Statements {
 		fieldManager.writeGwtFieldsDeclaration(niceWriter);
 	}
 
-	private void writeHandlers(IndentedWriter w)
-			throws UnableToCompleteException {
+	private void writeHandlers(IndentedWriter w) throws UnableToCompleteException {
 		if (designTime.isDesignTime()) {
 			return;
 		}
@@ -1994,16 +1722,14 @@ public class UiBinderWriter implements Statements {
 		if (!isRenderer) {
 			w.write("import com.google.gwt.uibinder.client.UiBinder;");
 			w.write("import com.google.gwt.uibinder.client.UiBinderUtil;");
-			w.write("import %s.%s;", uiRootType.getPackage().getName(),
-					uiRootType.getName());
+			w.write("import %s.%s;", uiRootType.getPackage().getName(), uiRootType.getName());
 		} else {
 			w.write("import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;");
 		}
 	}
 
 	/**
-	 * Write statements created by {@link #addInitStatement}. This code must be
-	 * placed after all instantiation code.
+	 * Write statements created by {@link #addInitStatement}. This code must be placed after all instantiation code.
 	 */
 	private void writeInitStatements(IndentedWriter niceWriter) {
 		for (String s : initStatements) {
@@ -2014,8 +1740,7 @@ public class UiBinderWriter implements Statements {
 	/**
 	 * Write the statements to fill in the fields of the UI owner.
 	 */
-	private void writeOwnerFieldSetters(IndentedWriter niceWriter)
-			throws UnableToCompleteException {
+	private void writeOwnerFieldSetters(IndentedWriter niceWriter) throws UnableToCompleteException {
 		if (designTime.isDesignTime()) {
 			return;
 		}
@@ -2027,8 +1752,7 @@ public class UiBinderWriter implements Statements {
 				// ownerField is a widget.
 				JClassType type = fieldWriter.getInstantiableType();
 				if (type != null) {
-					maybeWriteFieldSetter(niceWriter, ownerField,
-							fieldWriter.getInstantiableType(), fieldName);
+					maybeWriteFieldSetter(niceWriter, ownerField, fieldWriter.getInstantiableType(), fieldName);
 				} else {
 					// Must be a generated type
 					if (!ownerField.isProvided()) {
@@ -2039,10 +1763,7 @@ public class UiBinderWriter implements Statements {
 			} else {
 				// ownerField was not found as bundle resource or widget, must
 				// die.
-				die("Template %s has no %s attribute for %s.%s#%s",
-						templatePath, getUiFieldAttributeName(), uiOwnerType
-								.getPackage().getName(), uiOwnerType.getName(),
-						fieldName);
+				die("Template %s has no %s attribute for %s.%s#%s", templatePath, getUiFieldAttributeName(), uiOwnerType.getPackage().getName(), uiOwnerType.getName(), fieldName);
 			}
 		}
 	}
@@ -2058,8 +1779,7 @@ public class UiBinderWriter implements Statements {
 	/**
 	 * Writes the UiRenderer's source for the renderable strategy.
 	 */
-	private void writeRenderer(IndentedWriter w, FieldWriter rootField)
-			throws UnableToCompleteException {
+	private void writeRenderer(IndentedWriter w, FieldWriter rootField) throws UnableToCompleteException {
 		validateRendererGetters(baseClass);
 		validateRenderParameters(baseClass);
 		JMethod[] eventMethods = findEventMethods(baseClass);
@@ -2108,10 +1828,7 @@ public class UiBinderWriter implements Statements {
 		w.newline();
 
 		String renderParameterDeclarations = renderMethodParameters(renderParameters);
-		w.write("public void render(final %s sb%s%s) {",
-				SafeHtmlBuilder.class.getName(),
-				renderParameterDeclarations.length() != 0 ? ", " : "",
-				renderParameterDeclarations);
+		w.write("public void render(final %s sb%s%s) {", SafeHtmlBuilder.class.getName(), renderParameterDeclarations.length() != 0 ? ", " : "", renderParameterDeclarations);
 		w.indent();
 		w.newline();
 
@@ -2128,15 +1845,13 @@ public class UiBinderWriter implements Statements {
 		// TODO(rchandia) it should be possible to add the attribute when
 		// parsing
 		// the UiBinder file
-		w.write("sb.append(stampUiRendererAttribute(%s, RENDERED_ATTRIBUTE, uiId));",
-				safeHtml);
+		w.write("sb.append(stampUiRendererAttribute(%s, RENDERED_ATTRIBUTE, uiId));", safeHtml);
 		w.outdent();
 
 		w.write("}");
 		w.newline();
 
-		fieldManager.writeFieldDefinitions(w, getOracle(), getOwnerClass(),
-				getDesignTime());
+		fieldManager.writeFieldDefinitions(w, getOracle(), getOwnerClass(), getDesignTime());
 
 		writeRendererGetters(w, baseClass, rootField.getName());
 
@@ -2147,19 +1862,15 @@ public class UiBinderWriter implements Statements {
 		w.write("}");
 	}
 
-	private void writeRendererDispatcher(IndentedWriter w,
-			String dispatcherName, JClassType targetType, String rootFieldName,
-			JMethod[] uiHandlerMethods, JMethod sourceMethod)
+	private void writeRendererDispatcher(IndentedWriter w, String dispatcherName, JClassType targetType, String rootFieldName, JMethod[] uiHandlerMethods, JMethod sourceMethod)
 			throws UnableToCompleteException {
 
 		// static class UiRendererDispatcherForFoo extends
 		// UiRendererDispatcher<Foo> {
-		w.write("static class %s extends UiRendererDispatcher<%s> {",
-				dispatcherName, targetType.getQualifiedSourceName());
+		w.write("static class %s extends UiRendererDispatcher<%s> {", dispatcherName, targetType.getQualifiedSourceName());
 		w.indent();
 
-		writeRendererDispatcherTableInit(w, rootFieldName, uiHandlerMethods,
-				dispatcherName);
+		writeRendererDispatcherTableInit(w, rootFieldName, uiHandlerMethods, dispatcherName);
 
 		writeRendererDispatcherExtraParameters(w, sourceMethod);
 
@@ -2169,8 +1880,7 @@ public class UiBinderWriter implements Statements {
 		w.write("@Override");
 		// public void fireEvent(GwtEvent<?>
 		// somethingUnlikelyToCollideWithParamNames) {
-		w.write("public void fireEvent(com.google.gwt.event.shared.GwtEvent<?> %sEvent) {",
-				SAFE_VAR_PREFIX);
+		w.write("public void fireEvent(com.google.gwt.event.shared.GwtEvent<?> %sEvent) {", SAFE_VAR_PREFIX);
 		w.indent();
 		// switch (getMethodIndex()) {
 		w.write("switch (getMethodIndex()) {");
@@ -2197,9 +1907,7 @@ public class UiBinderWriter implements Statements {
 				sb.append(", ");
 				sb.append(sourceParam.getName());
 			}
-			w.write("getEventTarget().%s((%s) %sEvent%s);", uiMethod.getName(),
-					uiHandlerParameterTypes[0].getQualifiedSourceName(),
-					SAFE_VAR_PREFIX, sb.toString());
+			w.write("getEventTarget().%s((%s) %sEvent%s);", uiMethod.getName(), uiHandlerParameterTypes[0].getQualifiedSourceName(), SAFE_VAR_PREFIX, sb.toString());
 			// break;
 			w.write("break;");
 			w.newline();
@@ -2221,20 +1929,17 @@ public class UiBinderWriter implements Statements {
 		w.write("}");
 	}
 
-	private void writeRendererDispatcherExtraParameters(IndentedWriter w,
-			JMethod sourceMethod) {
+	private void writeRendererDispatcherExtraParameters(IndentedWriter w, JMethod sourceMethod) {
 		for (int i = 3; i < sourceMethod.getParameters().length; i++) {
 			JParameter param = sourceMethod.getParameters()[i];
 
 			// private int a;
 			// private String b;
-			w.write("private %s %s;", param.getType()
-					.getParameterizedQualifiedSourceName(), param.getName());
+			w.write("private %s %s;", param.getType().getParameterizedQualifiedSourceName(), param.getName());
 		}
 	}
 
-	private void writeRendererDispatcherFire(IndentedWriter w,
-			JMethod sourceMethod) {
+	private void writeRendererDispatcherFire(IndentedWriter w, JMethod sourceMethod) {
 		// public void fire(Foo o, NativeEvent e, Element parent, int a, String
 		// b) {
 		w.write("public void fire(");
@@ -2242,8 +1947,7 @@ public class UiBinderWriter implements Statements {
 		JParameter[] sourceParameters = sourceMethod.getParameters();
 		for (int i = 0; i < sourceParameters.length; i++) {
 			JParameter param = sourceParameters[i];
-			w.write(i == 0 ? "%s %s" : ", %s %s", param.getType()
-					.getQualifiedSourceName(), param.getName());
+			w.write(i == 0 ? "%s %s" : ", %s %s", param.getType().getQualifiedSourceName(), param.getName());
 		}
 		w.write(") {");
 		w.indent();
@@ -2251,22 +1955,18 @@ public class UiBinderWriter implements Statements {
 		// this.a = a;
 		for (int i = 3; i < sourceParameters.length; i++) {
 			JParameter sourceParam = sourceParameters[i];
-			w.write("this.%s = %s;", sourceParam.getName(),
-					sourceParam.getName());
+			w.write("this.%s = %s;", sourceParam.getName(), sourceParam.getName());
 		}
 
 		// fireEvent(o, e, parent);
-		w.write("fireEvent(%s, %s, %s);", sourceParameters[0].getName(),
-				sourceParameters[1].getName(), sourceParameters[2].getName());
+		w.write("fireEvent(%s, %s, %s);", sourceParameters[0].getName(), sourceParameters[1].getName(), sourceParameters[2].getName());
 
 		w.outdent();
 		w.write("}");
 		w.newline();
 	}
 
-	private void writeRendererDispatcherTableInit(IndentedWriter w,
-			String rootFieldName, JMethod[] uiHandlerMethods,
-			String dispatcherName) throws UnableToCompleteException {
+	private void writeRendererDispatcherTableInit(IndentedWriter w, String rootFieldName, JMethod[] uiHandlerMethods, String dispatcherName) throws UnableToCompleteException {
 		ArrayList<String> keys = new ArrayList<String>();
 		ArrayList<Integer> values = new ArrayList<Integer>();
 
@@ -2274,14 +1974,12 @@ public class UiBinderWriter implements Statements {
 		for (int i = 0; i < uiHandlerMethods.length; i++) {
 			JMethod jMethod = uiHandlerMethods[i];
 			String eventType = findEventTypeName(jMethod);
-			String[] fieldNames = jMethod.getAnnotation(UiHandler.class)
-					.value();
+			String[] fieldNames = jMethod.getAnnotation(UiHandler.class).value();
 			for (String fieldName : fieldNames) {
 				if (rootFieldName.equals(fieldName)) {
 					fieldName = AbstractUiRenderer.ROOT_FAKE_NAME;
 				}
-				keys.add(eventType + AbstractUiRenderer.UI_ID_SEPARATOR
-						+ fieldName);
+				keys.add(eventType + AbstractUiRenderer.UI_ID_SEPARATOR + fieldName);
 				values.add(i);
 			}
 		}
@@ -2329,16 +2027,14 @@ public class UiBinderWriter implements Statements {
 		w.write("public %s() {", dispatcherName);
 		w.indent();
 		// initDispatchTable(keys, values);
-		w.write("initDispatchTable(%s_keys, %s_values);", SAFE_VAR_PREFIX,
-				SAFE_VAR_PREFIX);
+		w.write("initDispatchTable(%s_keys, %s_values);", SAFE_VAR_PREFIX, SAFE_VAR_PREFIX);
 
 		// This ensures the DomEvent#TYPE fields are properly initialized and
 		// registered
 		// DashboardItemClickEvent.getType();
 		HashSet<String> eventTypes = new HashSet<String>();
 		for (JMethod uiMethod : uiHandlerMethods) {
-			eventTypes.add(uiMethod.getParameterTypes()[0]
-					.getQualifiedSourceName());
+			eventTypes.add(uiMethod.getParameterTypes()[0].getQualifiedSourceName());
 		}
 		for (String eventType : eventTypes) {
 			w.write("%s.getType();", eventType);
@@ -2349,23 +2045,17 @@ public class UiBinderWriter implements Statements {
 		w.newline();
 	}
 
-	private void writeRendererEventMethods(IndentedWriter w,
-			JMethod[] eventMethods, String rootField)
-			throws UnableToCompleteException {
+	private void writeRendererEventMethods(IndentedWriter w, JMethod[] eventMethods, String rootField) throws UnableToCompleteException {
 		for (JMethod jMethod : eventMethods) {
-			JClassType eventTargetType = jMethod.getParameterTypes()[0]
-					.isClassOrInterface();
-			String eventTargetSimpleName = eventTargetType
-					.getSimpleSourceName();
-			String dispatcherClassName = UI_RENDERER_DISPATCHER_PREFIX
-					+ eventTargetSimpleName;
+			JClassType eventTargetType = jMethod.getParameterTypes()[0].isClassOrInterface();
+			String eventTargetSimpleName = eventTargetType.getSimpleSourceName();
+			String dispatcherClassName = UI_RENDERER_DISPATCHER_PREFIX + eventTargetSimpleName;
 			JMethod[] uiHandlerMethods = findUiHandlerMethods(eventTargetType);
 
 			// public void onBrowserEvent(Foo f, NativeEvent event, Element
 			// parent, A a, B b ...) {
 			w.write("@Override");
-			w.write("public %s {", jMethod.getReadableDeclaration(true, true,
-					true, true, true));
+			w.write("public %s {", jMethod.getReadableDeclaration(true, true, true, true, true));
 
 			if (uiHandlerMethods.length != 0) {
 				w.indent();
@@ -2374,8 +2064,7 @@ public class UiBinderWriter implements Statements {
 				w.indent();
 				// singletonUiRendererDispatcherForFoo = new
 				// UiRendererDispatcherForFoo();
-				w.write("singleton%s = new %s();", dispatcherClassName,
-						dispatcherClassName);
+				w.write("singleton%s = new %s();", dispatcherClassName, dispatcherClassName);
 
 				w.outdent();
 				w.write("}");
@@ -2391,8 +2080,7 @@ public class UiBinderWriter implements Statements {
 					}
 					sb.append(callParam.getName());
 				}
-				w.write("singleton%s.fire(%s);", dispatcherClassName,
-						sb.toString());
+				w.write("singleton%s.fire(%s);", dispatcherClassName, sb.toString());
 				w.outdent();
 			}
 
@@ -2402,49 +2090,38 @@ public class UiBinderWriter implements Statements {
 			if (uiHandlerMethods.length != 0) {
 				// private static UiRendererDispatcherForFoo
 				// singletonUiRendererDispatcherForFoo;
-				w.write("private static %s singleton%s;", dispatcherClassName,
-						dispatcherClassName);
+				w.write("private static %s singleton%s;", dispatcherClassName, dispatcherClassName);
 
-				writeRendererDispatcher(w, dispatcherClassName,
-						eventTargetType, rootField, uiHandlerMethods, jMethod);
+				writeRendererDispatcher(w, dispatcherClassName, eventTargetType, rootField, uiHandlerMethods, jMethod);
 			}
 		}
 	}
 
-	private void writeRendererGetters(IndentedWriter w, JClassType owner,
-			String rootFieldName) {
+	private void writeRendererGetters(IndentedWriter w, JClassType owner, String rootFieldName) {
 		List<JMethod> getters = findGetterNames(owner);
 
 		// For every requested getter
 		for (JMethod getter : getters) {
 			// public ElementSubclass getFoo(Element parent) {
-			w.write("%s {", getter.getReadableDeclaration(false, false, false,
-					false, true));
+			w.write("%s {", getter.getReadableDeclaration(false, false, false, false, true));
 			w.indent();
 			String getterFieldName = getterToFieldName(getter.getName());
 			// Is this a CSS resource field?
 			FieldWriter fieldWriter = fieldManager.lookup(getterFieldName);
-			if (FieldWriterType.GENERATED_CSS
-					.equals(fieldWriter.getFieldType())) {
+			if (FieldWriterType.GENERATED_CSS.equals(fieldWriter.getFieldType())) {
 				// return (CssResourceSubclass) get_styleField;
-				w.write("return (%s) %s;", getter.getReturnType()
-						.getErasedType().getQualifiedSourceName(),
-						FieldManager.getFieldGetter(getterFieldName));
+				w.write("return (%s) %s;", getter.getReturnType().getErasedType().getQualifiedSourceName(), FieldManager.getFieldGetter(getterFieldName));
 			} else {
 				// Else the non-root elements are found by id
 				String elementParameter = getter.getParameters()[0].getName();
 				if (!getterFieldName.equals(rootFieldName)) {
 					// return (ElementSubclass) findInnerField(parent, "foo",
 					// RENDERED_ATTRIBUTE);
-					w.write("return (%s) findInnerField(%s, \"%s\", RENDERED_ATTRIBUTE);",
-							getter.getReturnType().getErasedType()
-									.getQualifiedSourceName(),
-							elementParameter, getterFieldName);
+					w.write("return (%s) findInnerField(%s, \"%s\", RENDERED_ATTRIBUTE);", getter.getReturnType().getErasedType().getQualifiedSourceName(), elementParameter,
+							getterFieldName);
 				} else {
 					// return (ElementSubclass) findRootElement(parent);
-					w.write("return (%s) findRootElement(%s, RENDERED_ATTRIBUTE);",
-							getter.getReturnType().getErasedType()
-									.getQualifiedSourceName(), elementParameter);
+					w.write("return (%s) findRootElement(%s, RENDERED_ATTRIBUTE);", getter.getReturnType().getErasedType().getQualifiedSourceName(), elementParameter);
 				}
 			}
 			w.outdent();
@@ -2452,13 +2129,11 @@ public class UiBinderWriter implements Statements {
 		}
 	}
 
-	private void writeRenderParameterInitializers(IndentedWriter w,
-			JParameter[] renderParameters) {
+	private void writeRenderParameterInitializers(IndentedWriter w, JParameter[] renderParameters) {
 		for (int i = 0; i < renderParameters.length; i++) {
 			JParameter parameter = renderParameters[i];
 			if (fieldManager.lookup(parameter.getName()) != null) {
-				w.write("this.%s = %s;", parameter.getName(),
-						parameter.getName());
+				w.write("this.%s = %s;", parameter.getName(), parameter.getName());
 				w.newline();
 			}
 		}
@@ -2476,9 +2151,7 @@ public class UiBinderWriter implements Statements {
 	}
 
 	/**
-	 * Write statements created by
-	 * {@link HtmlTemplatesWriter#addSafeHtmlTemplate} . This code must be
-	 * placed after all instantiation code.
+	 * Write statements created by {@link HtmlTemplatesWriter#addSafeHtmlTemplate} . This code must be placed after all instantiation code.
 	 */
 	private void writeTemplatesInterface(IndentedWriter w) {
 		if (!(htmlTemplates.isEmpty())) {
