@@ -13,24 +13,26 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-package com.ait.toolkit.famous.client.ui;
+package com.ait.toolkit.famous.client.transitions;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.ait.toolkit.core.client.JsObject;
+import com.ait.toolkit.core.client.JsoHelper;
 
-public class Surface extends RenderNode {
+public class FamoAnimation extends JsObject {
 
-	public Surface() {
-		jsObj = createPeer();
+	public FamoAnimation() {
+		jsObj = JsoHelper.createObject();
 	}
 
-	@Override
-	public native JavaScriptObject createPeer()/*-{
-		return new $wnd.famous.core.Surface();
-	}-*/;
+	public void setDuration(int value) {
+		JsoHelper.setAttribute(jsObj, "duration", value);
+	}
 
-	public native void setContent(String value)/*-{
-		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.setContent(value);
-	}-*/;
+	public void setCurve(String value) {
+		JsoHelper.setAttribute(jsObj, "curve", value);
+	}
 
+	public void setEasing(Easing value) {
+		JsoHelper.setAttribute(jsObj, "easing", value.getJsObj());
+	}
 }

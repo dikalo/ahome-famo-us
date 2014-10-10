@@ -21,8 +21,4 @@ public class FastClick {
 
 	}
 
-	public static native void require()/*-{
-		require('famous/inputs/FastClick');
-	}-*/;
-
 }

@@ -30,10 +30,6 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class Engine {
 
-	static {
-		require();
-	}
-
 	private Engine() {
 
 	}
@@ -44,7 +40,7 @@ public class Engine {
 	 * @return, provided context
 	 */
 	public static native Context registerContect(Context context)/*-{
-		var obj = $wnd.aitFamoEngine
+		var obj = $wnd.famous.core.Engine
 				.createContext(context.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
@@ -55,7 +51,7 @@ public class Engine {
 	 * @return, new Context
 	 */
 	public static native Context createContext()/*-{
-		var context = $wnd.aitFamoEngine.createContext();
+		var context = $wnd.famous.core.Engine.createContext();
 		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
 	}-*/;
 
@@ -67,7 +63,7 @@ public class Engine {
 	 * @return, new Context within el
 	 */
 	public static native Context createContext(Element el)/*-{
-		var context = $wnd.aitFamoEngine.createContext(el);
+		var context = $wnd.famous.core.Engine.createContext(el);
 		return @com.ait.toolkit.famous.client.ui.Context::new(Lcom/google/gwt/core/client/JavaScriptObject;)(context);
 	}-*/;
 
@@ -91,7 +87,7 @@ public class Engine {
 	 *            , event data
 	 */
 	public static native Engine emit(String event, EventData data)/*-{
-		$wnd.aitFamoEngine.emit(event,
+		$wnd.famous.core.Engine.emit(event,
 				data.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 		return this;
 	}-*/;
@@ -109,9 +105,9 @@ public class Engine {
 			var eventData = @com.ait.toolkit.famous.client.events.EventData::new(Lcom/google/gwt/core/client/JavaScriptObject;)(data);
 			handler.@com.ait.toolkit.famous.client.events.EventCallback::onEvent(Ljava/lang/String;Lcom/ait/toolkit/famous/client/events/EventData;)(event,eventData);
 		};
-		$wnd.aitFamoEngine.on(event, fn);
+		$wnd.famous.core.Engine.on(event, fn);
 
-		return @com.ait.toolkit.famous.client.events.EventHandlerRegistration::new(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(event, fn, $wnd.aitFamoEngine);
+		return @com.ait.toolkit.famous.client.events.EventHandlerRegistration::new(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;Lcom/google/gwt/core/client/JavaScriptObject;)(event, fn, $wnd.famous.core.Engine);
 	}-*/;
 
 	/**
@@ -122,7 +118,7 @@ public class Engine {
 	 * @return passed event handler
 	 */
 	public static native JavaScriptObject pipe(EventHandler target)/*-{
-		return $wnd.aitFamoEngine.pipe(event,
+		return $wnd.famous.core.Engine.pipe(event,
 				target.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 
 	}-*/;
@@ -136,7 +132,7 @@ public class Engine {
 	 */
 	public static native JavaScriptObject unpipe(EventHandler target)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		return $wnd.aitFamoEngine
+		return $wnd.famous.core.Engine
 				.unpipe(target.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 
 	}-*/;
@@ -145,7 +141,7 @@ public class Engine {
 	 * Return the current calculated frames per second of the Engine.
 	 */
 	public static native double getFPS()/*-{
-		return $wnd.aitFamoEngine.getFPS();
+		return $wnd.famous.core.Engine.getFPS();
 	}-*/;
 
 	/**
@@ -153,7 +149,7 @@ public class Engine {
 	 * Queue a function to be executed on the next tick of the Engine.
 	 */
 	public static native void nextTick(NextTickHandler fn)/*-{
-		$wnd.aitFamoEngine
+		$wnd.famous.core.Engine
 				.nextTick(function(w) {
 					fn.@com.ait.toolkit.famous.client.core.NextTickHandler::onNextTick(Lcom/google/gwt/core/client/JavaScriptObject;)(w);
 				});
@@ -164,7 +160,7 @@ public class Engine {
 	 * Queue a function to be executed sometime soon, at a time that is unlikely to affect frame rate.
 	 */
 	public static native void defer(Function fn)/*-{
-		$wnd.aitFamoEngine.defer(function() {
+		$wnd.famous.core.Engine.defer(function() {
 			fn.@com.ait.toolkit.core.client.Function::execute()();
 		});
 	}-*/;
@@ -174,14 +170,14 @@ public class Engine {
 	 * this rate is achieved.
 	 */
 	public static native void setFPSCap(double value)/*-{
-		$wnd.aitFamoEngine.setFPSCap(value);
+		$wnd.famous.core.Engine.setFPSCap(value);
 	}-*/;
 
 	/**
 	 * Set engine options
 	 */
 	public static native void setOptions(EngineOptions options)/*-{
-		$wnd.aitFamoEngine
+		$wnd.famous.core.Engine
 				.setOptions(options.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 	}-*/;
 
@@ -189,15 +185,10 @@ public class Engine {
 	 * Get engine options
 	 */
 	public static native EngineOptions getOptions(String key)/*-{
-		var obj = $wnd.aitFamoEngine.getOptions(key);
+		var obj = $wnd.famous.core.Engine.getOptions(key);
 		if (obj != null) {
 			return @com.ait.toolkit.famous.client.core.EngineOptions::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 		}
 		return null;
 	}-*/;
-
-	private static native void require()/*-{
-		$wnd.aitFamoEngine = require('famous/core/Engine');
-	}-*/;
-
 }

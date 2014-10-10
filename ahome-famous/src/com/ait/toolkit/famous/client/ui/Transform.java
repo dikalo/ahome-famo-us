@@ -20,10 +20,6 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 public class Transform extends JsObject {
 
-	static {
-		require();
-	}
-
 	protected Transform(JavaScriptObject obj) {
 		jsObj = obj;
 	}
@@ -33,22 +29,18 @@ public class Transform extends JsObject {
 	}
 
 	public static native Transform translate(double x, double y, double offset)/*-{
-		var obj = $wnd.aitFamoTransform.translate(x, y, offset);
+		var obj = $wnd.famous.core.Transform.translate(x, y, offset);
 		return @com.ait.toolkit.famous.client.ui.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
 
 	public static native Transform rotateX(double value)/*-{
-		var obj = $wnd.aitFamoTransform.rotateX(value);
+		var obj = $wnd.famous.core.Transform.rotateX(value);
 		return @com.ait.toolkit.famous.client.ui.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
 	}-*/;
 
 	public static native Transform rotateY(double value)/*-{
-		var obj = $wnd.aitFamoTransform.rotateY(value);
+		var obj = $wnd.famous.core.Transform.rotateY(value);
 		return @com.ait.toolkit.famous.client.ui.Transform::new(Lcom/google/gwt/core/client/JavaScriptObject;)(obj);
-	}-*/;
-
-	private static native void require()/*-{
-		$wnd.aitFamoTransform = require('famous/core/Transform');
 	}-*/;
 
 }

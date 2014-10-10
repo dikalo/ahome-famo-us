@@ -23,17 +23,9 @@ public class ImageSurface extends Surface {
 		jsObj = createPeer();
 	}
 
-	static {
-		require();
-	}
-
 	@Override
 	public native JavaScriptObject createPeer()/*-{
-		return new $wnd.aitFamoImageSurface();
-	}-*/;
-
-	private static native void require()/*-{
-		$wnd.aitFamoImageSurface = require('famous/surfaces/ImageSurface');
+		return new $wnd.famous.surfaces.ImageSurface();
 	}-*/;
 
 }

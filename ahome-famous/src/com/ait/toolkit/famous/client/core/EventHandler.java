@@ -30,10 +30,6 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class EventHandler extends JsObject {
 
-	static {
-		require();
-	}
-
 	public EventHandler() {
 		jsObj = createPeer();
 	}
@@ -102,10 +98,6 @@ public class EventHandler extends JsObject {
 
 	public native JavaScriptObject createPeer()/*-{
 		return new $wnd.aitFamoEventHandler();
-	}-*/;
-
-	private static native void require()/*-{
-		$wnd.aitFamoEventHandler = require('famous/core/EventHandler');
 	}-*/;
 
 }

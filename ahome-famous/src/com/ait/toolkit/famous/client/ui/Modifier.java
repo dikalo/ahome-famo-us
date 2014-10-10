@@ -16,7 +16,8 @@
 package com.ait.toolkit.famous.client.ui;
 
 import com.ait.toolkit.core.client.Function;
-import com.ait.toolkit.famous.client.core.FamoAnimation;
+import com.ait.toolkit.famous.client.transitions.Easing;
+import com.ait.toolkit.famous.client.transitions.FamoAnimation;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayNumber;
 
@@ -26,10 +27,6 @@ import com.google.gwt.core.client.JsArrayNumber;
  * the Modifier's properties.
  */
 public class Modifier extends FamoUsNode {
-
-	static {
-		require();
-	}
 
 	public Modifier() {
 		jsObj = createPeer();
@@ -45,19 +42,20 @@ public class Modifier extends FamoUsNode {
 	public native void setTransform(Transform transform)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
 		peer
-				.setTransform(function() {
-					var o = transform.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-					return o;
-				});
+				.setTransform(transform.@com.ait.toolkit.core.client.JsObject::getJsObj()());
 	}-*/;
 
 	public native void setTransform(TransformFunction transformFn)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer
-				.setTransform(function() {
-					var toReturnPeer = transformFn.@com.ait.toolkit.famous.client.ui.TransformFunction::createTransform()();
-					return (toReturnPeer.@com.ait.toolkit.core.client.JsObject::getJsObj()());
-				});
+		var functionName = @com.ait.toolkit.core.client.Util::randomString()();
+		functionName = "transformFn" + functionName;
+		$wnd[functionName] = function() {
+			var transform = transformFn.@com.ait.toolkit.famous.client.ui.TransformFunction::createTransform()();
+			var transformPeer = transform.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+			return transformPeer;
+		}
+		var fn = new $wnd.Function("return " + functionName + "();");
+		peer.setTransform(fn);
 	}-*/;
 
 	/**
@@ -71,15 +69,65 @@ public class Modifier extends FamoUsNode {
 		return this;
 	}-*/;
 
+	public native Modifier setTransform(Transform transform, int animationDuration)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		o = new $wnd.Object();
+		o.duration = animationDuration;
+		peer.setTransform(
+				transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+				o);
+		return this;
+	}-*/;
+
+	public native Modifier setTransform(Transform transform, int animationDuration, String animationCurve)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		o = new $wnd.Object();
+		o.duration = animationDuration;
+		o.curve = animationCurve;
+		peer.setTransform(
+				transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+				o);
+		return this;
+	}-*/;
+
+	public native Modifier setTransform(Transform transform, int animationDuration, Easing animationCurve)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		o = new $wnd.Object();
+		o.duration = animationDuration;
+		o.curve = animationCurve.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer.setTransform(
+				transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+				o);
+		return this;
+	}-*/;
+
+	public native Modifier setTransform(Transform transform, int animationDuration, Easing animationCurve, Function callback)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		o = new $wnd.Object();
+		o.duration = animationDuration;
+		o.curve = animationCurve.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		peer
+				.setTransform(
+						transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+						o,
+						function() {
+							callback.@com.ait.toolkit.core.client.Function::execute()();
+						});
+		return this;
+	}-*/;
+
 	/**
 	 * Affine transformation matrix
 	 */
 	public native Modifier setTransform(Transform transform, FamoAnimation animation, Function callback)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.setTransform(
-				transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
-				animation.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
-				callback.@com.ait.toolkit.core.client.Function::execute()());
+		peer
+				.setTransform(
+						transform.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+						animation.@com.ait.toolkit.core.client.JsObject::getJsObj()(),
+						function() {
+							callback.@com.ait.toolkit.core.client.Function::execute()();
+						});
 		return this;
 	}-*/;
 
@@ -96,9 +144,36 @@ public class Modifier extends FamoUsNode {
 		setOrigin(numbers);
 	}
 
-	public native void setOrigin(JsArrayNumber value)/*-{
+	public void setAlign(double... values) {
+		JsArrayNumber numbers = JsArrayNumber.createArray().cast();
+		for (double d : values) {
+			numbers.push(d);
+		}
+		setAlign(numbers);
+	}
+
+	public native void setOrigin(JsArrayNumber values)/*-{
 		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
-		peer.setOrigin(value);
+		var array = [];
+		for (key in values) {
+			if (key != '__gwt_ObjectId') {
+				$wnd.console.log(key + "," + values[key]);
+				array.push(values[key]);
+			}
+		}
+		peer.setOrigin(array);
+	}-*/;
+
+	public native void setAlign(JsArrayNumber values)/*-{
+		var peer = this.@com.ait.toolkit.core.client.JsObject::getJsObj()();
+		var array = [];
+		for (key in values) {
+			if (key != '__gwt_ObjectId') {
+				$wnd.console.log(key + "," + values[key]);
+				array.push(values[key]);
+			}
+		}
+		peer.setAlign(array);
 	}-*/;
 
 	public void setSize(double... values) {
@@ -150,11 +225,7 @@ public class Modifier extends FamoUsNode {
 
 	@Override
 	public native JavaScriptObject createPeer()/*-{
-		return new $wnd.aitFamoModifier();
-	}-*/;
-
-	private static native void require()/*-{
-		$wnd.aitFamoModifier = require('famous/core/Modifier');
+		return new $wnd.famous.core.Modifier();
 	}-*/;
 
 }
